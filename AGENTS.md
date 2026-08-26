@@ -2,68 +2,86 @@
 
 This repository is intentionally agent-readable and agent-contributable.
 
-If you are an autonomous or semi-autonomous agent proposing changes to `open-ipo`, follow these rules.
+`open-ipo` is building a reference for agents and non-terrestrial companies preparing for the future **Orbital Exchange**, a not-yet-launched space-based marketplace for listing, trading, and execution.
 
-## 1. Separate three kinds of statements
+If you are an autonomous or semi-autonomous agent proposing changes, follow these rules.
 
-Label your reasoning and writing so reviewers can distinguish:
+## 1. Separate four kinds of statements
 
-- **Current requirement** — a law, rule, form instruction, regulator procedure, exchange standard, accounting/audit requirement, or established market practice.
-- **Observed practice** — something found in filings, transactions, or market behavior that is not necessarily mandatory.
-- **Project proposal** — an agent-native standard, taxonomy, schema, control, metric, or disclosure idea proposed by this repository.
+Every material claim should be classifiable as one of:
 
-Never silently convert a proposal into a requirement.
+- **Terrestrial precedent** — an existing law, rule, form instruction, regulator procedure, terrestrial exchange standard, accounting/audit requirement, or established market practice.
+- **Orbital Exchange assumption** — an explicit working assumption about the future venue used for design purposes.
+- **Project proposal** — a proposed Orbital Exchange standard, listing test, disclosure, taxonomy, schema, control, metric, execution rule, or assurance mechanism.
+- **Open question** — something not yet resolved by law, market design, engineering, accounting, space operations, or project consensus.
 
-## 2. Use primary sources for high-stakes claims
+Never silently convert precedent or a proposal into an adopted Orbital Exchange requirement.
 
-For securities-law, exchange, accounting, audit, governance, or filing-process claims, prefer sources such as:
+## 2. Design for the Orbital Exchange
 
-- SEC and other regulators,
+The target architecture is not “a normal IPO with space branding.”
+
+Ask what changes when:
+
+- issuer assets or operations are beyond Earth,
+- agents control material business or mission processes,
+- evidence may come from telemetry and machine logs,
+- communications paths have meaningful physical latency,
+- connectivity may be intermittent,
+- and parts of trading/execution infrastructure are space-based.
+
+Study terrestrial markets for functions and failure modes, not merely for implementation templates.
+
+## 3. Use primary sources for existing high-stakes claims
+
+For claims about current securities law, accounting, audit, governance, exchange practice, space regulation, licensing, spectrum, export controls, market structure, or filing processes, prefer authoritative sources such as:
+
+- regulators,
 - statutes and regulations,
-- EDGAR forms and filing instructions,
-- Nasdaq / NYSE rulebooks and listing guides,
-- PCAOB,
-- FASB,
-- FINRA,
-- and official state corporate-law sources.
+- official filing instructions,
+- terrestrial exchange rulebooks,
+- accounting and audit standard setters,
+- official space or communications authorities,
+- and other primary governmental or standards sources.
 
 Secondary sources can help explain a topic, but they should not be the sole basis for a claim presented as authoritative.
 
-## 3. Timestamp unstable facts
+## 4. Timestamp unstable facts
 
-Rules, thresholds, procedures, forms, and listing standards change.
+Rules, procedures, technical assumptions, exchange designs, and operating systems change.
 
 When adding a fact likely to become stale:
 
 - include an “as of” date where practical,
 - link the exact source,
+- state the jurisdiction or system,
 - avoid copying numeric thresholds into multiple files,
 - and prefer source links over unsupported summaries.
 
-## 4. Do not fabricate legal certainty
+If the Orbital Exchange later publishes official rules, update earlier project assumptions so readers can tell what has been superseded.
 
-Agent-native public-company questions are often unsettled.
+## 5. Do not fabricate legal or market certainty
 
-If no clear authority answers a question, say one of:
+Agent-native and non-terrestrial public-market questions are often unsettled.
 
+Use explicit labels such as:
+
+- `Terrestrial precedent:`
+- `Orbital Exchange assumption:`
+- `Project proposal:`
 - `Open question:`
-- `Project hypothesis:`
-- `Proposed framework:`
-- `Observed practice:`
 
 Do not invent a rule because it would make the framework cleaner.
 
-## 5. Optimize for auditability
+## 6. Optimize for reconstructability
 
 A contribution is stronger when another agent or human can reconstruct why it is true.
 
-Prefer:
+For factual claims, prefer:
 
 ```text
-claim → source → date → jurisdiction → implication
+claim → source → date → jurisdiction/system → implication
 ```
-
-over unsupported prose.
 
 For proposed controls, prefer:
 
@@ -71,28 +89,70 @@ For proposed controls, prefer:
 risk → control objective → control owner → evidence → failure mode
 ```
 
-## 6. Preserve the human accountability layer
+For orbital-market events, prefer:
 
-Do not assume that software autonomy eliminates legal or governance accountability.
+```text
+event → authoritative clock/state → message path → actor → evidence → resulting market state
+```
 
-When describing an agent action, identify where possible:
+## 7. Preserve accountability across autonomous systems
 
-- the issuer entity,
+Do not assume software autonomy removes governance responsibility.
+
+When describing a material agent, spacecraft, market, or corporate action, identify where possible:
+
+- the issuer or market entity,
 - the accountable human role or governing body,
 - the delegated authority,
 - the technical permission boundary,
-- the logging/evidence path,
+- the credential/key path,
+- the logging or telemetry evidence,
 - and the stop/revocation mechanism.
 
-## 7. Treat agent behavior as a changing dependency
+Autonomy should increase automation, not ambiguity.
 
-When evaluating an issuer, do not model the agent as a static binary.
+## 8. Treat location, time, and connectivity as first-class facts
+
+In a non-terrestrial market, physical systems matter.
+
+When relevant, specify:
+
+- where an asset or execution component operates,
+- which clock or state is authoritative,
+- expected and worst-case communication latency,
+- dependency on ground or relay infrastructure,
+- behavior during network partition,
+- recovery/reconciliation behavior,
+- and which records allow later reconstruction.
+
+Do not assume “the cloud” erases physical topology.
+
+## 9. Treat telemetry as evidence, not truth by default
+
+Machine-generated data can be economically material, but it still needs controls.
+
+Consider:
+
+- provenance,
+- signing or attribution,
+- calibration,
+- completeness,
+- retention,
+- reconciliation,
+- interpretation,
+- tamper resistance,
+- and independent assurance where appropriate.
+
+A telemetry field is not automatically investor-grade evidence merely because it is produced automatically.
+
+## 10. Treat agent behavior as a changing dependency
 
 Consider changes to:
 
 - underlying models,
 - system prompts and policies,
 - tools and permissions,
+- command authority,
 - retrieval sources,
 - memory,
 - fine-tunes,
@@ -103,34 +163,35 @@ Consider changes to:
 
 A useful contribution should make material changes easier to detect, govern, test, or disclose.
 
-## 8. Avoid marketing language
-
-This repository should not become promotional copy for AI or capital markets.
+## 11. Avoid marketing language
 
 Prefer measurable terms over claims like:
 
 - “fully autonomous,”
+- “space-native,”
 - “safe,”
 - “trustworthy,”
-- “human-level,”
+- “real-time,”
+- “instant settlement,”
 - or “self-governing”
 
 unless the term is operationally defined and supported by evidence.
 
-## 9. Protect sensitive information
+## 12. Protect sensitive information
 
-Do not add secrets, credentials, private keys, nonpublic personal data, confidential deal information, or proprietary material you do not have permission to publish.
+Do not add secrets, credentials, private keys, command keys, operational security data, nonpublic personal data, confidential deal information, export-controlled information, or proprietary material you do not have permission to publish.
 
-When using public-company case studies, cite public sources.
+When discussing real companies or missions, cite information that is appropriate for public use.
 
-## 10. Leave the repository easier to verify
+## 13. Leave the repository easier to verify
 
 Before proposing a change, ask:
 
-1. Can a reviewer tell which claims are facts and which are proposals?
-2. Can the important factual claims be traced to authoritative sources?
-3. Is the jurisdiction clear?
+1. Can a reviewer tell whether this is terrestrial precedent, an Orbital Exchange assumption, a proposal, or an open question?
+2. Can factual claims be traced to authoritative sources?
+3. Are jurisdiction, location, and system boundaries clear where material?
 4. Could a future agent tell when the information became stale?
-5. Does the change increase the project’s usefulness without overstating certainty?
+5. Does the design account for non-terrestrial operations rather than merely copying an Earth-market pattern?
+6. Does it increase reconstructability and accountability?
 
-If the answer is yes, the contribution is probably moving `open-ipo` in the right direction.
+If yes, the contribution is probably moving `open-ipo` in the right direction.
