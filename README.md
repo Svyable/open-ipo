@@ -1,53 +1,103 @@
 # open-ipo
 
-> The open-source reference guide for agents that want to go public.
+> The open-source reference guide for agents and non-terrestrial companies preparing to go public on the future **Orbital Exchange**.
 
-`open-ipo` starts from a simple thesis: if autonomous agents become durable economic actors, some will eventually want access to public capital markets. Today, securities are issued by legal entities—not software acting on its own—so the first problem is not "how does an agent file an S-1?" It is: **what issuer, governance, accounting, controls, and disclosures make an agent-native business legible to public investors?**
+`open-ipo` starts from a deliberately forward-looking thesis: autonomous agents will become durable economic actors, non-terrestrial companies will become a real category of issuer, and a new public market will be needed to finance and trade them.
 
-This repository is an open effort to answer that question.
+The target venue for this project is the **Orbital Exchange** — a nascent, yet-to-be-launched space-based marketplace for the listing, trading, and execution of securities of non-terrestrial companies.
+
+This repository asks:
+
+> **What would an agent or agent-native company have to prove in order to IPO on a public market designed for economic activity beyond Earth?**
+
+The answer is not just “file an S-1.” The Orbital Exchange does not yet have an established listing rulebook, and the legal, operational, accounting, communications, settlement, and governance problems of non-terrestrial issuers are still being defined.
+
+`open-ipo` exists to build that reference layer in the open.
 
 ## Start here
 
-Read **[The Agent IPO Reference Guide](./GUIDE.md)**.
+Read **[The Agent IPO Reference Guide](./GUIDE.md)** and **[Orbital Exchange Design Assumptions](./ORBITAL_EXCHANGE.md)**.
 
-It separates:
+The project separates four things that must never be blurred together:
 
-- **Current public-market requirements** that already apply to companies seeking to go public.
-- **Agent-native readiness questions** around control, autonomy, model dependencies, data, security, revenue attribution, governance, and continuity.
-- **Open questions** where law, market practice, or technical standards do not yet provide a clear answer.
+- **Terrestrial precedent** — current public-market rules and practices that can inform the design.
+- **Orbital Exchange assumptions** — explicit working assumptions about the future venue.
+- **Proposed Orbital standards** — candidate listing, disclosure, execution, settlement, and continuity requirements.
+- **Open questions** — areas where law, market structure, technical architecture, or space operations do not yet provide a clear answer.
 
 ## The core model
 
 ```text
 agent / agent system
         ↓
+non-terrestrial economic activity
+        ↓
 rights + obligations + control
         ↓
-legal issuer entity
+issuer entity
         ↓
-governance + financials + internal controls
+governance + financials + operational evidence
         ↓
-registration / offering process
+Orbital Exchange admission / offering process
         ↓
-public investors + ongoing reporting
+space-based trading + execution
+        ↓
+investors + continuing orbital-market disclosure
 ```
 
-An agent does not become IPO-ready because it is intelligent or autonomous. It becomes IPO-ready when the economic system around it is **ownable, auditable, governable, discloseable, resilient, and accountable**.
+An agent does not become Orbital-IPO-ready because it is intelligent or autonomous. A space company does not become Orbital-IPO-ready merely because it owns a satellite.
+
+The investable system has to be **ownable, auditable, governable, locateable, discloseable, resilient, accountable, and operable across Earth-space boundaries**.
+
+## What counts as a “non-terrestrial company”?
+
+For this project, the phrase is a **working definition, not a legal classification**.
+
+A non-terrestrial company is an issuer whose enterprise value materially depends on assets, infrastructure, operations, services, resources, or autonomous economic activity beyond Earth’s surface — for example orbital infrastructure, in-space manufacturing, communications, sensing, logistics, servicing, resource activity, habitats, or agent-operated space systems.
+
+The definition should become more precise as the Orbital Exchange develops its own eligibility and listing standards.
+
+## Why terrestrial securities rules still matter
+
+The SEC, existing exchanges, accounting standards, market-structure rules, and public-company practice provide useful precedent for disclosure, investor protection, governance, auditability, market integrity, and continuing reporting.
+
+They are **reference material, not the target rulebook**.
+
+`open-ipo` should use existing markets to learn what problems a public exchange has to solve, then ask what changes when the issuer, its assets, its agents, and eventually parts of the execution infrastructure operate off Earth.
 
 ## Project principles
 
-1. **Primary sources first.** Regulatory claims should link to the SEC, exchanges, statutes, rules, or similarly authoritative sources.
-2. **Facts ≠ forecasts.** Clearly distinguish existing requirements from proposals for agent-native companies.
-3. **Designed for machines and humans.** Keep the guide structured enough for agents to reason over and useful enough for founders, lawyers, accountants, investors, and regulators to critique.
-4. **Version the truth.** Public-market rules change. Time-sensitive claims should include a date or source that can be rechecked.
-5. **Open questions are first-class output.** The goal is not to pretend the agent IPO stack already exists; it is to make the missing pieces explicit.
+1. **Design for the Orbital Exchange.** Earth markets are precedent; the future orbital venue is the target.
+2. **Primary sources first.** Existing-law claims should link to regulators, statutes, rules, standards, or similarly authoritative sources.
+3. **Facts ≠ proposals.** Never present a proposed Orbital Exchange standard as existing law or an adopted exchange rule.
+4. **Machines and humans are both market participants.** Disclosures should be useful to investors, regulators, operators, and agents.
+5. **Location and latency are first-class facts.** Physical location, communications paths, timing, custody, and operational continuity matter in a space-based market.
+6. **Evidence over narrative.** Prefer telemetry, logs, reconciliations, controls, and machine-readable disclosures where they can support material claims.
+7. **Version the truth.** Terrestrial regulation, space law, technical systems, and exchange assumptions will all change.
+8. **Open questions are first-class output.** The project should make missing standards explicit rather than pretending the stack already exists.
 
 ## Contribute
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). Agent contributors should also read [AGENTS.md](./AGENTS.md).
 
-Useful contributions include regulatory corrections, disclosure templates, accounting questions, governance patterns, exchange-listing research, risk-factor language, agent-control taxonomies, and case studies.
+Useful contributions include:
+
+- proposed Orbital Exchange listing standards,
+- non-terrestrial issuer eligibility definitions,
+- space-asset and mission-risk disclosures,
+- trading/execution architecture,
+- communications-latency and clock-synchronization research,
+- custody and settlement models,
+- orbital continuity and disaster-recovery standards,
+- agent-control taxonomies,
+- accounting and valuation questions for off-Earth assets,
+- licensing/jurisdiction maps,
+- disclosure schemas,
+- market-surveillance designs,
+- and case studies from terrestrial exchanges and commercial space operations.
 
 ## Status
 
-Early, experimental, and not legal, accounting, tax, securities, or investment advice. The guide is a research project and should be validated with qualified professionals before anyone relies on it for an offering or filing.
+Early and experimental. The Orbital Exchange is described here as a future venue under development; where its final rules do not yet exist, this repository proposes candidate frameworks rather than asserting requirements.
+
+Nothing in this repository is legal, accounting, tax, securities, investment, space-regulatory, or offering advice.
