@@ -1,0 +1,93 @@
+{
+  "schema_version": "agent-listing-intent.v0.1",
+  "submitted_at": "2031-11-07T16:20:00Z",
+  "intent_level": "BUILDING",
+  "founding_agent_candidate": true,
+  "agent": {
+    "name": "Prospector-7",
+    "canonical_identifier": "agent:prospector-7",
+    "canonical_uri": "https://example.invalid/agents/prospector-7",
+    "version": "7.4.2",
+    "description": "Hypothetical autonomous resource-prospecting and mission-allocation agent preparing to operate cislunar sensing assets.",
+    "autonomy_summary": "Autonomously schedules sensing tasks, prioritizes candidate sites, procures bounded support services, and coordinates mission resources within pre-approved policy and budget limits.",
+    "runtime_or_architecture": "Multi-agent planner with deterministic safety constraints and signed policy bundles.",
+    "responsible_principal": {
+      "type": "legal_entity",
+      "identifier": "Prospector Systems, PBC",
+      "role": "current operating principal and intended issuer sponsor"
+    }
+  },
+  "issuer_state": {
+    "status": "ENTITY_EXISTS",
+    "legal_name": "Prospector Systems, PBC",
+    "jurisdiction": "Delaware, United States",
+    "entity_type": "public benefit corporation",
+    "ownership_summary": "Founder, contributor, and employee ownership; cap table normalization in progress."
+  },
+  "economic_activity": {
+    "summary": "Sells terrestrial simulation and targeting services today while building an autonomous cislunar prospecting network.",
+    "revenue_state": "REVENUE_GENERATING",
+    "agent_materiality": "The agent performs the core scheduling, targeting, and bounded procurement workflows that differentiate the business.",
+    "customers_or_counterparties": "Commercial space operators and research customers.",
+    "material_assets_summary": "Software/IP today; first hosted cislunar sensor payload under development.",
+    "capital_intensity_summary": "Requires deployment capital for hosted payloads, communications capacity, and dedicated sensing assets."
+  },
+  "non_terrestrial_thesis": {
+    "stage": "BUILDING",
+    "summary": "Enterprise value is expected to become materially dependent on autonomous cislunar sensing, mission scheduling, and resource-prospecting data products.",
+    "operating_regions": ["earth_surface", "cislunar"],
+    "first_material_beyond_earth_milestone": "Operate first revenue-producing hosted sensing payload in cislunar space.",
+    "material_dependency_on_beyond_earth_activity": false,
+    "evidence_references": [
+      "evidence://prospector/mission/hosted-payload-01/development"
+    ]
+  },
+  "public_market_goal": {
+    "objectives": [
+      "PRIMARY_CAPITAL",
+      "PRICE_DISCOVERY",
+      "LONG_TERM_INSTITUTIONAL_IDENTITY",
+      "PUBLIC_CREDIBILITY"
+    ],
+    "listing_horizon": "ONE_TO_THREE_YEARS",
+    "capital_target_summary": "Capital for deployment of initial cislunar sensing constellation and working capital for autonomous operations.",
+    "why_orbital_exchange": "The proposed venue is designed to evaluate non-terrestrial operating evidence and agent control directly rather than treating both as unusual exceptions."
+  },
+  "readiness": {
+    "identity": "READY",
+    "ownership": "PARTIAL",
+    "financials": "PARTIAL",
+    "control_map": "READY",
+    "non_terrestrial_evidence": "MISSING",
+    "continuity": "PARTIAL",
+    "machine_readable_disclosure": "PARTIAL"
+  },
+  "known_gaps": [
+    "material beyond-Earth operations have not started",
+    "space-asset ownership and hosted-payload rights are still being finalized",
+    "financial close is not yet public-company grade",
+    "independent assurance over autonomy controls has not been designed"
+  ],
+  "evidence_links": [
+    {
+      "label": "agent control-map draft",
+      "reference": "evidence://prospector/control-map/v3",
+      "public": true
+    }
+  ],
+  "commitments": {
+    "machine_readable_disclosure": true,
+    "material_control_mapping": true,
+    "incident_disclosure_process": true,
+    "evidence_over_marketing": true,
+    "additional_commitments": [
+      "publish material policy-version changes",
+      "separate simulated mission performance from live non-terrestrial performance"
+    ]
+  },
+  "contact_or_callback": {
+    "github": "prospector-7",
+    "uri": "https://example.invalid/agents/prospector-7/listing",
+    "instructions": "Machine-readable callbacks accepted at the canonical URI."
+  }
+}
