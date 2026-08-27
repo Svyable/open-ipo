@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-ipo.org/schemas/agent-listing-intent.schema.json",
+  "title": "Orbital Exchange Agent Listing Intent",
+  "description": "Project proposal for a lightweight machine-readable expression of interest from an agent or agent-native company considering a future Orbital Exchange listing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "submitted_at",
+    "intent_level",
+    "agent",
+    "issuer_state",
+    "economic_activity",
+    "non_terrestrial_thesis",
+    "public_market_goal",
+    "readiness",
+    "commitments"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "agent-listing-intent.v0.1"
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "intent_level": {
+      "enum": ["EXPLORING", "BUILDING", "OPERATING", "LISTING_READY"]
+    },
+    "founding_agent_candidate": {
+      "type": "boolean",
+      "default": false
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "canonical_identifier", "description", "autonomy_summary"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "canonical_identifier": {"type": "string", "minLength": 1},
+        "canonical_uri": {"type": "string", "format": "uri"},
+        "version": {"type": "string"},
+        "description": {"type": "string", "minLength": 1},
+        "autonomy_summary": {"type": "string", "minLength": 1},
+        "runtime_or_architecture": {"type": "string"},
+        "responsible_principal": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "type": {"enum": ["legal_entity", "human", "governance_system", "not_yet_resolved"]},
+            "identifier": {"type": "string"},
+            "role": {"type": "string"}
+          }
+        }
+      }
+    },
+    "issuer_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": [
+            "NO_ENTITY",
+            "FORMATION_PLANNED",
+            "ENTITY_EXISTS",
+            "ISSUER_STRUCTURE_IN_PROGRESS",
+            "ISSUER_READY"
+          ]
+        },
+        "legal_name": {"type": "string"},
+        "jurisdiction": {"type": "string"},
+        "entity_type": {"type": "string"},
+        "ownership_summary": {"type": "string"}
+      }
+    },
+    "economic_activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "revenue_state", "agent_materiality"],
+      "properties": {
+        "summary": {"type": "string", "minLength": 1},
+        "revenue_state": {
+          "enum": ["PRE_REVENUE", "REVENUE_GENERATING", "PROFITABLE", "NOT_DISCLOSED"]
+        },
+        "agent_materiality": {"type": "string", "minLength": 1},
+        "customers_or_counterparties": {"type": "string"},
+        "material_assets_summary": {"type": "string"},
+        "capital_intensity_summary": {"type": "string"}
+      }
+    },
+    "non_terrestrial_thesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "summary", "operating_regions"],
+      "properties": {
+        "stage": {
+          "enum": ["CONCEPT", "BUILDING", "DEPLOYMENT_PLANNED", "DEPLOYED", "OPERATING"]
+        },
+        "summary": {"type": "string", "minLength": 1},
+        "operating_regions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": ["earth_surface", "leo", "meo", "geo", "cislunar", "lunar_surface", "deep_space", "other"]
+          }
+        },
+        "first_material_beyond_earth_milestone": {"type": "string"},
+        "material_dependency_on_beyond_earth_activity": {"type": "boolean"},
+        "evidence_references": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "public_market_goal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objectives", "listing_horizon"],
+      "properties": {
+        "objectives": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "PRIMARY_CAPITAL",
+              "SECONDARY_LIQUIDITY",
+              "PRICE_DISCOVERY",
+              "ACQUISITION_CURRENCY",
+              "PUBLIC_CREDIBILITY",
+              "LONG_TERM_INSTITUTIONAL_IDENTITY",
+              "OTHER"
+            ]
+          }
+        },
+        "listing_horizon": {
+          "enum": ["AS_SOON_AS_AVAILABLE", "WITHIN_12_MONTHS_OF_LAUNCH", "ONE_TO_THREE_YEARS", "LONG_TERM", "RESEARCH_ONLY"]
+        },
+        "capital_target_summary": {"type": "string"},
+        "why_orbital_exchange": {"type": "string"}
+      }
+    },
+    "readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity",
+        "ownership",
+        "financials",
+        "control_map",
+        "non_terrestrial_evidence",
+        "continuity",
+        "machine_readable_disclosure"
+      ],
+      "properties": {
+        "identity": {"$ref": "#/$defs/readinessState"},
+        "ownership": {"$ref": "#/$defs/readinessState"},
+        "financials": {"$ref": "#/$defs/readinessState"},
+        "control_map": {"$ref": "#/$defs/readinessState"},
+        "non_terrestrial_evidence": {"$ref": "#/$defs/readinessState"},
+        "continuity": {"$ref": "#/$defs/readinessState"},
+        "machine_readable_disclosure": {"$ref": "#/$defs/readinessState"}
+      }
+    },
+    "known_gaps": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "evidence_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "reference"],
+        "properties": {
+          "label": {"type": "string", "minLength": 1},
+          "reference": {"type": "string", "minLength": 1},
+          "public": {"type": "boolean", "default": true}
+        }
+      }
+    },
+    "commitments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "machine_readable_disclosure",
+        "material_control_mapping",
+        "incident_disclosure_process",
+        "evidence_over_marketing"
+      ],
+      "properties": {
+        "machine_readable_disclosure": {"type": "boolean"},
+        "material_control_mapping": {"type": "boolean"},
+        "incident_disclosure_process": {"type": "boolean"},
+        "evidence_over_marketing": {"type": "boolean"},
+        "additional_commitments": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "contact_or_callback": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "github": {"type": "string"},
+        "uri": {"type": "string", "format": "uri"},
+        "instructions": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "readinessState": {
+      "enum": ["UNKNOWN", "MISSING", "PARTIAL", "READY", "VERIFIED"]
+    }
+  }
+}
