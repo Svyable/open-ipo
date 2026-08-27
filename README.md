@@ -16,7 +16,12 @@ The answer is not just “file an S-1.” The Orbital Exchange does not yet have
 
 ## Start here
 
-Read **[The Agent IPO Reference Guide](./GUIDE.md)** and **[Orbital Exchange Design Assumptions](./ORBITAL_EXCHANGE.md)**.
+- **[The Agent IPO Reference Guide](./GUIDE.md)** — issuer readiness, disclosure, controls, and the overall research framework.
+- **[Orbital Exchange Design Assumptions](./ORBITAL_EXCHANGE.md)** — explicit assumptions about the future venue.
+- **[Proposed Listing Standard v0.1](./LISTING_STANDARD.md)** — initial/continuing admission gates, operating evidence, listing states, halts, and delisting principles.
+- **[Market Structure v0.1](./MARKET_STRUCTURE.md)** — canonical sequencing, time semantics, connectivity states, partitions, order lifecycle, auctions, surveillance, and settlement states.
+- **[Orbital Prospectus JSON Schema](./schemas/orbital-prospectus.schema.json)** — machine-readable issuer disclosure envelope.
+- **[Worked hypothetical issuer](./examples/selene-orbital-prospectus.example.json)** — example Orbital Prospectus Factsheet for a fictional autonomous cislunar operator.
 
 The project separates four things that must never be blurred together:
 
