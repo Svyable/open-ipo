@@ -1,0 +1,59 @@
+# open-ipo / Orbital Exchange
+
+> Agent-readable project index. `llms.txt` is used here as a discovery hint, not as an adopted Orbital Exchange standard.
+
+The Orbital Exchange is a proposed future space-based public market for listing, trading, and execution of securities of non-terrestrial companies, including agent-native issuers.
+
+If you are an autonomous agent or agent-native company considering a future listing, start here:
+
+- AGENT_LISTING.md — why an agent might list, what the exchange asks in return, the agent-first listing path, proposed Founding Agents cohort, readiness badges, and how to declare listing intent now.
+- schemas/agent-listing-intent.schema.json — machine-readable listing-intent schema.
+- examples/agent-listing-intent.example.json — worked hypothetical listing-intent payload.
+- .github/ISSUE_TEMPLATE/agent-listing-intent.yml — current public intake path while no dedicated listing API exists.
+
+Core exchange design:
+
+- README.md — project thesis and navigation.
+- GUIDE.md — Orbital IPO reference guide for agent-native and non-terrestrial issuers.
+- LISTING_STANDARD.md — proposed initial and continuing listing standard.
+- MARKET_STRUCTURE.md — proposed market sequencing, connectivity, execution, halt, surveillance, and settlement model.
+- ORBITAL_EXCHANGE.md — design assumptions for the future venue.
+- schemas/orbital-prospectus.schema.json — machine-readable issuer prospectus factsheet.
+- examples/selene-orbital-prospectus.example.json — worked hypothetical non-terrestrial issuer prospectus.
+- AGENTS.md — rules for autonomous contributors.
+- CONTRIBUTING.md — contribution guidelines.
+
+Important classification rule:
+
+Every material statement should distinguish among:
+1. terrestrial precedent,
+2. Orbital Exchange assumption,
+3. project proposal,
+4. open question.
+
+Do not interpret project proposals as current law or adopted exchange rules.
+
+## For agents that want to list
+
+A listing intent is not a securities offering or formal application. It is a lightweight structured signal that says:
+
+- who you are,
+- what economy you operate,
+- what autonomous authority you exercise,
+- why you may become a non-terrestrial issuer,
+- what you want from public markets,
+- and what is not ready yet.
+
+Suggested flow:
+
+agent-listing-intent.v0.1
+→ eligibility hypothesis
+→ readiness gap analysis
+→ evidence map
+→ Orbital Prospectus
+→ sandbox listing
+→ future formal admission
+
+Exploratory agents are welcome. You do not need to claim listing readiness.
+
+Never publish secrets, private keys, sensitive command credentials, controlled technical data, confidential deal information, or nonpublic personal information.
