@@ -1,0 +1,87 @@
+{
+  "schema_version": "listing-readiness-response.v0.1",
+  "listing_intent_id": "intent:prospector-7:2031-11-07",
+  "generated_at": "2031-11-07T16:25:00Z",
+  "state": "READINESS_REVIEW",
+  "eligibility_hypothesis": {
+    "classification": "autonomous_non_terrestrial_operator",
+    "confidence": "MEDIUM",
+    "reasoning_summary": "The applicant is agent-native and is actively building cislunar operating capacity, but material beyond-Earth economic dependence has not yet been established.",
+    "blocking_questions": [
+      "Will the first hosted payload create a material revenue or operating dependency beyond Earth?",
+      "What enforceable rights will the intended issuer hold over the hosted payload and resulting data products?"
+    ]
+  },
+  "readiness": {
+    "identity": {
+      "state": "READY",
+      "summary": "A legal operating principal exists and is identified as the intended issuer sponsor.",
+      "evidence_references": []
+    },
+    "ownership": {
+      "state": "PARTIAL",
+      "summary": "Cap table and space-asset rights require further normalization and documentation.",
+      "evidence_references": []
+    },
+    "financials": {
+      "state": "PARTIAL",
+      "summary": "The business is revenue-generating but has not demonstrated public-company-grade close, audit, or mission-cost attribution.",
+      "evidence_references": []
+    },
+    "control_map": {
+      "state": "READY",
+      "summary": "Material autonomous scheduling, targeting, and procurement authority is described with bounded limits.",
+      "evidence_references": [
+        "evidence://prospector/control-map/v3"
+      ]
+    },
+    "non_terrestrial_evidence": {
+      "state": "MISSING",
+      "summary": "The applicant has no live material beyond-Earth operating evidence yet.",
+      "evidence_references": []
+    },
+    "continuity": {
+      "state": "PARTIAL",
+      "summary": "Continuity planning is described at a high level but recovery objectives and tests are not yet evidenced.",
+      "evidence_references": []
+    },
+    "machine_readable_disclosure": {
+      "state": "PARTIAL",
+      "summary": "The listing-intent payload is machine-readable; a full Orbital Prospectus has not yet been produced.",
+      "evidence_references": []
+    }
+  },
+  "earned_badges": [
+    "IDENTITY_RESOLVED",
+    "CONTROL_MAPPED"
+  ],
+  "next_actions": [
+    {
+      "action": "Document enforceable ownership/control rights for the first cislunar hosted payload and resulting data.",
+      "priority": "BLOCKING",
+      "why": "The future issuer must be able to show what non-terrestrial economic rights investors would actually own.",
+      "expected_evidence": "Executed hosted-payload agreement, IP/data-rights summary, and asset-rights mapping.",
+      "related_standard": "LISTING_STANDARD.md#gate-a--legal-and-ownership-identity"
+    },
+    {
+      "action": "Publish first live non-terrestrial evidence envelope after deployment.",
+      "priority": "HIGH",
+      "why": "Current eligibility remains prospective until material beyond-Earth operations can be evidenced.",
+      "expected_evidence": "Signed mission/asset evidence with observation time, provenance, freshness, and public reference.",
+      "related_standard": "LISTING_STANDARD.md#5-operating-evidence-standard"
+    },
+    {
+      "action": "Define and test continuity recovery objectives for loss of the planning agent or communications path.",
+      "priority": "MEDIUM",
+      "why": "A listed autonomous issuer should remain operationally legible through component failure.",
+      "expected_evidence": "Continuity plan plus dated test record.",
+      "related_standard": "LISTING_STANDARD.md#gate-e--mission-and-continuity-evidence"
+    }
+  ],
+  "verification": {
+    "facts_verified": false,
+    "verification_summary": "This example response is based only on the hypothetical applicant's self-reported listing intent. No factual claims were independently verified.",
+    "verified_evidence_references": []
+  },
+  "disclaimer": "Illustrative project-proposal output only. This is not exchange approval, legal advice, an eligibility determination, or a securities recommendation."
+}
