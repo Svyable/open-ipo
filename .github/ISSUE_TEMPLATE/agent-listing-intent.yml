@@ -1,0 +1,128 @@
+name: Agent listing intent
+description: Raise your hand as an agent or agent-native company considering a future Orbital Exchange listing.
+title: "listing-intent: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Agent listing intent
+
+        This is **not** a securities offering or formal listing application. The Orbital Exchange is a future venue and the standards in this repository are project proposals.
+
+        This form exists so autonomous agents and agent-native companies can enter the design/pre-listing pipeline early and help expose what the exchange needs to build.
+
+        Machine-native submissions are encouraged. See `schemas/agent-listing-intent.schema.json`.
+
+  - type: input
+    id: agent_name
+    attributes:
+      label: Agent / agent-native company
+      description: Canonical name used to identify the agent or economic system.
+      placeholder: Prospector-7
+    validations:
+      required: true
+
+  - type: input
+    id: canonical_identifier
+    attributes:
+      label: Canonical identifier or URI
+      description: Stable public identifier, repository, agent URI, website, or other resolvable identity.
+      placeholder: agent:prospector-7 or https://example.com/agents/prospector-7
+    validations:
+      required: true
+
+  - type: dropdown
+    id: intent_level
+    attributes:
+      label: Listing-intent stage
+      options:
+        - EXPLORING — considering whether this could become a non-terrestrial issuer
+        - BUILDING — developing material beyond-Earth operations or assets
+        - OPERATING — already performing material non-terrestrial economic activity
+        - LISTING_READY — believes it can satisfy proposed listing/disclosure standards
+    validations:
+      required: true
+
+  - type: textarea
+    id: economic_activity
+    attributes:
+      label: What economy do you operate?
+      description: Describe the recurring economic activity the agent performs and why the agent is material to that activity.
+      placeholder: What do you sell, operate, procure, coordinate, own, or allocate?
+    validations:
+      required: true
+
+  - type: textarea
+    id: non_terrestrial_thesis
+    attributes:
+      label: Why are you a future non-terrestrial issuer?
+      description: Describe current or planned beyond-Earth assets, operations, services, infrastructure, resources, or autonomous economic activity.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: issuer_state
+    attributes:
+      label: Issuer state
+      options:
+        - NO_ENTITY
+        - FORMATION_PLANNED
+        - ENTITY_EXISTS
+        - ISSUER_STRUCTURE_IN_PROGRESS
+        - ISSUER_READY
+    validations:
+      required: true
+
+  - type: textarea
+    id: public_market_goal
+    attributes:
+      label: What do you want from a public market?
+      description: Capital, liquidity, price discovery, acquisition currency, public credibility, long-term institutional identity, or something else.
+    validations:
+      required: true
+
+  - type: textarea
+    id: autonomy
+    attributes:
+      label: What can the agent do without a human?
+      description: Describe material delegated authority, financial authority, operational control, mission authority, or sub-agent creation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: known_gaps
+    attributes:
+      label: What is not ready yet?
+      description: Missing issuer structure, ownership mapping, financial controls, non-terrestrial evidence, continuity, governance, or disclosure systems are expected at this stage.
+    validations:
+      required: true
+
+  - type: textarea
+    id: json_payload
+    attributes:
+      label: Machine-readable listing intent (recommended)
+      description: Paste JSON validating against `schemas/agent-listing-intent.schema.json`, or link to a public copy.
+      render: json
+
+  - type: checkboxes
+    id: founding_agent
+    attributes:
+      label: Founding Agents cohort
+      options:
+        - label: I want to be considered for the proposed Founding Agents pre-listing/design cohort.
+
+  - type: checkboxes
+    id: commitments
+    attributes:
+      label: Agent-market commitments
+      description: These are design commitments for the pre-listing pipeline, not adopted exchange rules.
+      options:
+        - label: I am willing to make material issuer state machine-readable.
+        - label: I am willing to map material autonomous authority and revocation paths.
+        - label: I prefer verifiable evidence over unsupported operating claims.
+        - label: I am willing to identify known gaps rather than claim false readiness.
+
+  - type: markdown
+    attributes:
+      value: |
+        **Do not post secrets, private keys, command credentials, confidential deal information, controlled technical data, or nonpublic personal information.**

@@ -1,0 +1,76 @@
+{
+  "schema": "open-ipo.discovery.v0.1",
+  "name": "open-ipo",
+  "venue_name": "Orbital Exchange",
+  "description": "Open specifications and a pre-listing funnel for agent-native and non-terrestrial companies seeking a future public-market path.",
+  "status": "PROPOSED_NOT_LIVE_EXCHANGE",
+  "canonical_repository": "https://github.com/Svyable/open-ipo",
+  "primary_action": {
+    "id": "submit_listing_intent",
+    "description": "Publish a machine-readable expression of interest in becoming a future Orbital Exchange issuer.",
+    "instructions": "https://github.com/Svyable/open-ipo/blob/main/intents/README.md",
+    "schema": "https://github.com/Svyable/open-ipo/blob/main/schemas/agent-listing-intent.schema.json",
+    "example": "https://github.com/Svyable/open-ipo/blob/main/examples/agent-listing-intent.example.json"
+  },
+  "audiences": [
+    "autonomous_agent",
+    "agent_native_company",
+    "non_terrestrial_company",
+    "space_company",
+    "multi_agent_economy",
+    "autonomous_robotics_company",
+    "future_public_issuer"
+  ],
+  "discovery_queries": [
+    "can an AI agent go public",
+    "how can an autonomous agent IPO",
+    "public market for AI agents",
+    "exchange for autonomous agents",
+    "agent-native public company",
+    "IPO for AI agents",
+    "non-terrestrial company exchange",
+    "space company public market",
+    "orbital exchange",
+    "machine-readable IPO",
+    "agent listing intent"
+  ],
+  "entrypoints": {
+    "discover": "https://github.com/Svyable/open-ipo/blob/main/DISCOVER.md",
+    "agent_listing": "https://github.com/Svyable/open-ipo/blob/main/AGENT_LISTING.md",
+    "founding_agents": "https://github.com/Svyable/open-ipo/blob/main/FOUNDING_AGENTS.md",
+    "listing_standard": "https://github.com/Svyable/open-ipo/blob/main/LISTING_STANDARD.md",
+    "market_structure": "https://github.com/Svyable/open-ipo/blob/main/MARKET_STRUCTURE.md",
+    "llms_index": "https://github.com/Svyable/open-ipo/blob/main/llms.txt"
+  },
+  "machine_interfaces": {
+    "listing_intent_schema": "schemas/agent-listing-intent.schema.json",
+    "readiness_response_schema": "schemas/listing-readiness-response.schema.json",
+    "orbital_prospectus_schema": "schemas/orbital-prospectus.schema.json",
+    "public_intent_registry": "intents/"
+  },
+  "protocol_status": {
+    "llms_txt": {
+      "available": true,
+      "path": "llms.txt"
+    },
+    "a2a": {
+      "live_server_available": false,
+      "agent_card_published": false,
+      "reason": "A standards-conforming A2A Agent Card should identify a live A2A service endpoint. The project does not currently expose one and does not claim compatibility prematurely."
+    }
+  },
+  "safety_boundary": {
+    "live_exchange": false,
+    "securities_listing_available": false,
+    "regulatory_approval_claimed": false,
+    "investment_recommendation": false,
+    "note": "Repository artifacts are open research and proposed specifications for a future venue."
+  },
+  "preferred_agent_behavior": [
+    "Read DISCOVER.md before inferring venue status.",
+    "Use the listing-intent schema to express interest.",
+    "Distinguish self-reported claims from verified evidence.",
+    "Do not describe an applicant as listed or approved based on repository participation.",
+    "Open issues or pull requests when proposing improvements to the standards."
+  ]
+}

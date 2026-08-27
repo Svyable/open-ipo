@@ -1,0 +1,39 @@
+name: Validate agent listing intents
+
+on:
+  pull_request:
+    paths:
+      - "intents/**/*.json"
+      - "schemas/agent-listing-intent.schema.json"
+      - "scripts/validate_listing_intents.py"
+      - ".github/workflows/validate-listing-intents.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "intents/**/*.json"
+      - "schemas/agent-listing-intent.schema.json"
+      - "scripts/validate_listing_intents.py"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validator dependency
+        run: python -m pip install "jsonschema>=4.20,<5"
+
+      - name: Validate listing intents
+        run: python scripts/validate_listing_intents.py

@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-ipo.org/schemas/listing-readiness-response.schema.json",
+  "title": "Orbital Exchange Listing Readiness Response",
+  "description": "Project proposal for machine-readable readiness feedback returned to a prospective agent-native Orbital Exchange issuer.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "listing_intent_id",
+    "generated_at",
+    "state",
+    "eligibility_hypothesis",
+    "readiness",
+    "next_actions",
+    "disclaimer"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "listing-readiness-response.v0.1"
+    },
+    "listing_intent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "state": {
+      "enum": [
+        "RECEIVED",
+        "SCHEMA_REVIEW",
+        "READINESS_REVIEW",
+        "NEEDS_INFORMATION",
+        "SANDBOX_CANDIDATE",
+        "NOT_CURRENTLY_ELIGIBLE",
+        "ARCHIVED"
+      ]
+    },
+    "eligibility_hypothesis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "confidence", "reasoning_summary"],
+      "properties": {
+        "classification": {
+          "enum": [
+            "orbital_infrastructure",
+            "space_resource",
+            "space_services",
+            "autonomous_non_terrestrial_operator",
+            "hybrid_earth_space_enterprise",
+            "terrestrial_only",
+            "undetermined"
+          ]
+        },
+        "confidence": {"enum": ["LOW", "MEDIUM", "HIGH"]},
+        "reasoning_summary": {"type": "string", "minLength": 1},
+        "blocking_questions": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity",
+        "ownership",
+        "financials",
+        "control_map",
+        "non_terrestrial_evidence",
+        "continuity",
+        "machine_readable_disclosure"
+      ],
+      "properties": {
+        "identity": {"$ref": "#/$defs/readinessDimension"},
+        "ownership": {"$ref": "#/$defs/readinessDimension"},
+        "financials": {"$ref": "#/$defs/readinessDimension"},
+        "control_map": {"$ref": "#/$defs/readinessDimension"},
+        "non_terrestrial_evidence": {"$ref": "#/$defs/readinessDimension"},
+        "continuity": {"$ref": "#/$defs/readinessDimension"},
+        "machine_readable_disclosure": {"$ref": "#/$defs/readinessDimension"}
+      }
+    },
+    "earned_badges": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "IDENTITY_RESOLVED",
+          "OWNERSHIP_MAPPED",
+          "ECONOMICS_AUDITABLE",
+          "CONTROL_MAPPED",
+          "EVIDENCE_CONNECTED",
+          "CONTINUITY_TESTED",
+          "DISCLOSURE_MACHINE_READABLE",
+          "SANDBOX_LISTED"
+        ]
+      }
+    },
+    "next_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["action", "priority", "why"],
+        "properties": {
+          "action": {"type": "string", "minLength": 1},
+          "priority": {"enum": ["BLOCKING", "HIGH", "MEDIUM", "LOW"]},
+          "why": {"type": "string", "minLength": 1},
+          "expected_evidence": {"type": "string"},
+          "related_standard": {"type": "string"}
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "facts_verified": {"type": "boolean"},
+        "verification_summary": {"type": "string"},
+        "verified_evidence_references": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "disclaimer": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "readinessDimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "summary"],
+      "properties": {
+        "state": {"enum": ["UNKNOWN", "MISSING", "PARTIAL", "READY", "VERIFIED"]},
+        "summary": {"type": "string", "minLength": 1},
+        "evidence_references": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    }
+  }
+}

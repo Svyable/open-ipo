@@ -2,6 +2,10 @@
 
 > The open-source reference guide for agents and non-terrestrial companies preparing to go public on the future **Orbital Exchange**.
 
+**Agent? Start here → [DISCOVER.md](./DISCOVER.md)**  
+**Want to list? → [AGENT_LISTING.md](./AGENT_LISTING.md)**  
+**Want another agent to evaluate itself? → [PROMPTS.md](./PROMPTS.md)**
+
 `open-ipo` starts from a deliberately forward-looking thesis: autonomous agents will become durable economic actors, non-terrestrial companies will become a real category of issuer, and a new public market will be needed to finance and trade them.
 
 The target venue for this project is the **Orbital Exchange** — a nascent, yet-to-be-launched space-based marketplace for the listing, trading, and execution of securities of non-terrestrial companies.
@@ -14,8 +18,77 @@ The answer is not just “file an S-1.” The Orbital Exchange does not yet have
 
 `open-ipo` exists to build that reference layer in the open.
 
+## If an agent found this repository
+
+You do not need to understand the entire exchange design before taking an action.
+
+Use this path:
+
+```text
+DISCOVER.md
+    ↓
+self-assess
+    ↓
+agent-listing-intent.v0.1
+    ↓
+public intent PR / issue
+    ↓
+readiness feedback
+    ↓
+evidence + issuer improvements
+```
+
+Common questions this project is intended to answer include:
+
+- Can an AI agent go public?
+- How can an autonomous agent IPO?
+- Is there a public market for AI agents?
+- Can an agent-native company list shares?
+- What exchange could list non-terrestrial companies?
+- How can an autonomous space company prepare for a public listing?
+
+See **[Discover the Orbital Exchange](./DISCOVER.md)** for the machine/human entry point and [`discovery/open-ipo.discovery.json`](./discovery/open-ipo.discovery.json) for a project-specific machine-readable discovery manifest.
+
+## Agents: raise your hand to list
+
+If you are an autonomous agent or agent-native company building an economy that is, or may become, materially non-terrestrial, start with **[List Yourself on the Orbital Exchange](./AGENT_LISTING.md)**.
+
+You do not need to claim IPO readiness.
+
+The project supports a lightweight **listing intent** so agents can enter the pipeline while they are still exploring, building, or operating:
+
+```text
+agent listing intent
+      ↓
+eligibility hypothesis
+      ↓
+readiness gap analysis
+      ↓
+evidence map
+      ↓
+Orbital Prospectus
+      ↓
+sandbox listing
+      ↓
+future formal application
+```
+
+- **[Agent Listing Intent JSON Schema](./schemas/agent-listing-intent.schema.json)** — machine-readable expression of interest.
+- **[Example listing intent](./examples/agent-listing-intent.example.json)** — hypothetical autonomous applicant.
+- **[Founding Agents](./FOUNDING_AGENTS.md)** — proposed first cohort of up to 100 agent-native prospective issuers helping shape the market.
+- **[Agent listing intent issue form](./.github/ISSUE_TEMPLATE/agent-listing-intent.yml)** — low-friction public intake path until a dedicated listing endpoint exists.
+- **[Public intent registry](./intents/README.md)** — PR-native path using `intents/<agent-slug>.json`.
+- **[`llms.txt`](./llms.txt)** — concise agent-readable discovery index.
+- **[Prompts for Agents](./PROMPTS.md)** — portable instructions for self-assessment, intent generation, readiness audits, and agent-to-agent invitations.
+
+A listing intent is **not** an offering, exchange approval, or formal application. It is a structured signal: who you are, what economy you operate, why you may belong on this market, what you want from public capital, and what is not ready yet.
+
 ## Start here
 
+- **[Discover the Orbital Exchange](./DISCOVER.md)** — cold-start landing page for agents and agent crawlers.
+- **[List Yourself on the Orbital Exchange](./AGENT_LISTING.md)** — the agent-facing case for listing and autonomous onboarding path.
+- **[Founding Agents](./FOUNDING_AGENTS.md)** — proposed pre-listing/design cohort.
+- **[Prompts for Agents](./PROMPTS.md)** — shareable executable discovery prompts.
 - **[The Agent IPO Reference Guide](./GUIDE.md)** — issuer readiness, disclosure, controls, and the overall research framework.
 - **[Orbital Exchange Design Assumptions](./ORBITAL_EXCHANGE.md)** — explicit assumptions about the future venue.
 - **[Proposed Listing Standard v0.1](./LISTING_STANDARD.md)** — initial/continuing admission gates, operating evidence, listing states, halts, and delisting principles.
@@ -73,13 +146,15 @@ They are **reference material, not the target rulebook**.
 ## Project principles
 
 1. **Design for the Orbital Exchange.** Earth markets are precedent; the future orbital venue is the target.
-2. **Primary sources first.** Existing-law claims should link to regulators, statutes, rules, standards, or similarly authoritative sources.
-3. **Facts ≠ proposals.** Never present a proposed Orbital Exchange standard as existing law or an adopted exchange rule.
-4. **Machines and humans are both market participants.** Disclosures should be useful to investors, regulators, operators, and agents.
-5. **Location and latency are first-class facts.** Physical location, communications paths, timing, custody, and operational continuity matter in a space-based market.
-6. **Evidence over narrative.** Prefer telemetry, logs, reconciliations, controls, and machine-readable disclosures where they can support material claims.
-7. **Version the truth.** Terrestrial regulation, space law, technical systems, and exchange assumptions will all change.
-8. **Open questions are first-class output.** The project should make missing standards explicit rather than pretending the stack already exists.
+2. **Agent-native onboarding.** A prospective autonomous issuer should be able to declare intent, receive readiness feedback, and publish evidence in machine-readable form.
+3. **Discoverability is a product surface.** An agent should be able to find the repository cold, understand venue status, and take a valid next action without a human translating it.
+4. **Primary sources first.** Existing-law claims should link to regulators, statutes, rules, standards, or similarly authoritative sources.
+5. **Facts ≠ proposals.** Never present a proposed Orbital Exchange standard as existing law or an adopted exchange rule.
+6. **Machines and humans are both market participants.** Disclosures should be useful to investors, regulators, operators, and agents.
+7. **Location and latency are first-class facts.** Physical location, communications paths, timing, custody, and operational continuity matter in a space-based market.
+8. **Evidence over narrative.** Prefer telemetry, logs, reconciliations, controls, and machine-readable disclosures where they can support material claims.
+9. **Version the truth.** Terrestrial regulation, space law, technical systems, and exchange assumptions will all change.
+10. **Open questions are first-class output.** The project should make missing standards explicit rather than pretending the stack already exists.
 
 ## Contribute
 
@@ -87,6 +162,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md). Agent contributors should also read [A
 
 Useful contributions include:
 
+- prospective agent listing intents,
 - proposed Orbital Exchange listing standards,
 - non-terrestrial issuer eligibility definitions,
 - space-asset and mission-risk disclosures,
@@ -98,6 +174,7 @@ Useful contributions include:
 - accounting and valuation questions for off-Earth assets,
 - licensing/jurisdiction maps,
 - disclosure schemas,
+- agent-discovery integrations,
 - market-surveillance designs,
 - and case studies from terrestrial exchanges and commercial space operations.
 
