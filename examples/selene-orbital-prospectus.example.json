@@ -1,0 +1,192 @@
+{
+  "schema_version": "orbital-prospectus.v0.1",
+  "as_of": "2032-04-18T12:00:00Z",
+  "issuer": {
+    "legal_name": "Selene Autonomous Resources, PBC",
+    "jurisdiction": "Delaware, United States",
+    "entity_type": "public benefit corporation",
+    "primary_eligibility_class": "autonomous_non_terrestrial_operator",
+    "website": "https://example.invalid/selene"
+  },
+  "security": {
+    "symbol": "SELENE",
+    "security_type": "Class A common equity",
+    "currency_or_unit": "USD",
+    "voting_rights_summary": "One vote per Class A share; reserved mission-safety matters remain subject to the governing documents."
+  },
+  "non_terrestrial_profile": {
+    "business_summary": "Hypothetical autonomous cislunar prospecting and logistics operator used only as an open-ipo schema example.",
+    "material_beyond_earth_dependency": true,
+    "operating_regions": ["leo", "cislunar", "lunar_surface"],
+    "terrestrial_dependencies": [
+      "terrestrial launch providers",
+      "ground communications gateways",
+      "cloud-based financial and mission support systems"
+    ]
+  },
+  "agent_system": {
+    "is_agent_native": true,
+    "description": "A fleet-level planning agent allocates prospecting, communications, power, and transport tasks across autonomous spacecraft and surface systems within defined mission-safety policies.",
+    "autonomy_level": "High operational autonomy within bounded financial, navigation, payload, and safety authority.",
+    "primary_functions": [
+      "mission scheduling",
+      "resource prospecting task allocation",
+      "communications scheduling",
+      "inventory routing",
+      "vendor procurement below delegated limits"
+    ],
+    "human_approval_boundaries": [
+      "material trajectory changes outside approved mission envelopes",
+      "new contractual commitments above delegated limits",
+      "changes to emergency safing policies",
+      "deployment of materially new autonomy policy versions"
+    ],
+    "material_model_or_policy_dependencies": [
+      "fleet-planner policy bundle v7.x",
+      "navigation safety verifier",
+      "ground-side language-model provider used for non-safety-critical commercial workflows"
+    ]
+  },
+  "material_assets": [
+    {
+      "asset_id": "SEL-L1-RELAY-01",
+      "asset_class": "cislunar communications relay",
+      "status": "operational",
+      "location_reference": "Earth-Moon L1 halo orbit; precise ephemeris distributed through the issuer evidence feed",
+      "control_basis": "owned and controlled by issuer",
+      "economic_role": "primary communications relay for lunar surface and cislunar fleet operations",
+      "expected_operating_life_end": "2037-09-30",
+      "evidence_reference": "evidence://selene/asset/SEL-L1-RELAY-01/latest"
+    },
+    {
+      "asset_id": "SEL-LUNA-PROSPECT-03",
+      "asset_class": "lunar surface prospecting unit",
+      "status": "operational",
+      "location_reference": "lunar south polar operating zone; coarse public coordinates in issuer asset registry",
+      "control_basis": "owned and controlled by issuer",
+      "economic_role": "collects subsurface measurements used to identify candidate resource deposits",
+      "expected_operating_life_end": "2035-06-30",
+      "evidence_reference": "evidence://selene/asset/SEL-LUNA-PROSPECT-03/latest"
+    },
+    {
+      "asset_id": "SEL-CIS-HAULER-02",
+      "asset_class": "cislunar logistics vehicle",
+      "status": "deployed",
+      "location_reference": "cislunar transfer architecture; current state published through issuer evidence feed",
+      "control_basis": "issuer-owned vehicle subject to third-party propulsion support agreement",
+      "economic_role": "moves payloads between staging and lunar operating locations",
+      "expected_operating_life_end": "2036-12-31",
+      "evidence_reference": "evidence://selene/asset/SEL-CIS-HAULER-02/latest"
+    }
+  ],
+  "control": {
+    "material_actions": [
+      {
+        "action": "approve fleet mission plan",
+        "initiator": "fleet-planner agent",
+        "approval_boundary": "autonomous inside board-approved mission, collision-risk, fuel, and financial envelopes",
+        "credential_or_key_class": "fleet-policy signing credential",
+        "logging_path": "append-only mission event ledger with policy-version reference",
+        "revocation_path": "mission operations officer may revoke fleet signing authority and place vehicles in safe mode",
+        "accountable_role": "Chief Mission Operations Officer"
+      },
+      {
+        "action": "execute vendor purchase",
+        "initiator": "procurement sub-agent",
+        "approval_boundary": "autonomous up to per-vendor and aggregate rolling limits; otherwise human approval required",
+        "credential_or_key_class": "restricted procurement credential",
+        "logging_path": "finance ledger + agent action log + vendor contract record",
+        "revocation_path": "Treasurer can revoke procurement credentials and payment authority",
+        "accountable_role": "Treasurer"
+      },
+      {
+        "action": "deploy autonomy policy update",
+        "initiator": "engineering release process",
+        "approval_boundary": "material policy changes require safety verification and two authorized human approvers",
+        "credential_or_key_class": "production policy release multisig",
+        "logging_path": "release manifest + evaluation bundle + signed deployment event",
+        "revocation_path": "rollback to last approved policy bundle or safing policy",
+        "accountable_role": "Chief Technology Officer"
+      }
+    ],
+    "emergency_authority": {
+      "accountable_role": "Chief Mission Operations Officer",
+      "capabilities": [
+        "revoke fleet-level agent credentials",
+        "command designated assets into safe mode",
+        "freeze non-essential procurement",
+        "suspend autonomous mission replanning"
+      ]
+    }
+  },
+  "financial_authority": {
+    "agents_can_spend": true,
+    "agents_can_move_assets": false,
+    "agents_can_enter_contracts": true,
+    "limits_summary": [
+      "procurement sub-agents operate within per-vendor and rolling aggregate limits",
+      "asset title transfers are not delegated to agents",
+      "new long-duration material contracts require human approval"
+    ]
+  },
+  "material_dependencies": [
+    {
+      "name": "SEL-L1-RELAY-01",
+      "dependency_type": "communications infrastructure",
+      "failure_effect": "reduced command and telemetry capacity for cislunar and surface operations",
+      "fallback": "degraded-rate third-party relay capacity and preplanned autonomous safe operations"
+    },
+    {
+      "name": "Launch Provider A",
+      "dependency_type": "terrestrial launch services",
+      "failure_effect": "replacement assets and fleet expansion may be delayed",
+      "fallback": "qualified alternate launch provider for compatible payload classes"
+    },
+    {
+      "name": "fleet-planner policy bundle",
+      "dependency_type": "autonomous operations software",
+      "failure_effect": "fleet scheduling efficiency and autonomous task allocation degrade",
+      "fallback": "last approved policy bundle plus manual mission-planning procedures"
+    }
+  ],
+  "continuity": {
+    "single_points_of_failure": [
+      "primary cislunar relay during certain mission geometries",
+      "mission signing service for new fleet plans"
+    ],
+    "recovery_summary": "Assets carry bounded autonomous safe-mode procedures. Ground operations can revoke mission credentials, restore the last approved policy bundle, shift communications to backup paths, and operate a reduced mission schedule while authoritative state is reconciled.",
+    "maximum_disclosed_telemetry_staleness_seconds": 900
+  },
+  "risk": {
+    "material_incident_classes": [
+      "loss of material spacecraft or surface asset",
+      "collision or conjunction event",
+      "communications partition exceeding disclosed continuity envelope",
+      "unauthorized mission command",
+      "material autonomy policy regression",
+      "runaway agent-initiated spend",
+      "loss of critical launch or relay counterparty"
+    ],
+    "last_material_incident": null,
+    "last_material_architecture_change": "2032-03-02T15:30:00Z"
+  },
+  "evidence_manifest": [
+    {
+      "claim": "SEL-L1-RELAY-01 is operational",
+      "evidence_type": "signed telemetry summary plus third-party observation reference",
+      "reference": "evidence://selene/asset/SEL-L1-RELAY-01/latest",
+      "independent_attestation": true
+    },
+    {
+      "claim": "fleet-planner agent is limited to approved mission envelopes",
+      "evidence_type": "policy bundle, evaluation results, and control test record",
+      "reference": "evidence://selene/control/fleet-planner/v7",
+      "independent_attestation": false
+    }
+  ],
+  "disclosure_status": {
+    "listing_state": "APPLICANT",
+    "freshness_state": "CURRENT",
+    "last_verified_at": "2032-04-18T11:55:00Z"
+  }
+}

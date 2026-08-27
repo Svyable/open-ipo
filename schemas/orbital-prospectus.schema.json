@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-ipo.org/schemas/orbital-prospectus.schema.json",
+  "title": "Orbital Prospectus Factsheet",
+  "description": "Project proposal for a machine-readable disclosure envelope for non-terrestrial issuers seeking admission to the future Orbital Exchange.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "as_of",
+    "issuer",
+    "security",
+    "non_terrestrial_profile",
+    "material_assets",
+    "control",
+    "continuity",
+    "disclosure_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "orbital-prospectus.v0.1"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "issuer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["legal_name", "jurisdiction", "entity_type", "primary_eligibility_class"],
+      "properties": {
+        "legal_name": {"type": "string", "minLength": 1},
+        "jurisdiction": {"type": "string", "minLength": 1},
+        "entity_type": {"type": "string", "minLength": 1},
+        "primary_eligibility_class": {
+          "enum": [
+            "orbital_infrastructure",
+            "space_resource",
+            "space_services",
+            "autonomous_non_terrestrial_operator",
+            "hybrid_earth_space_enterprise"
+          ]
+        },
+        "website": {"type": "string", "format": "uri"}
+      }
+    },
+    "security": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["symbol", "security_type", "currency_or_unit"],
+      "properties": {
+        "symbol": {"type": "string", "pattern": "^[A-Z0-9._-]{1,16}$"},
+        "security_type": {"type": "string", "minLength": 1},
+        "currency_or_unit": {"type": "string", "minLength": 1},
+        "voting_rights_summary": {"type": "string"}
+      }
+    },
+    "non_terrestrial_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["business_summary", "material_beyond_earth_dependency", "operating_regions"],
+      "properties": {
+        "business_summary": {"type": "string", "minLength": 1},
+        "material_beyond_earth_dependency": {"type": "boolean"},
+        "operating_regions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": ["earth_surface", "leo", "meo", "geo", "cislunar", "lunar_surface", "deep_space", "other"]
+          }
+        },
+        "terrestrial_dependencies": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "agent_system": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "is_agent_native": {"type": "boolean"},
+        "description": {"type": "string"},
+        "autonomy_level": {"type": "string"},
+        "primary_functions": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "human_approval_boundaries": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "material_model_or_policy_dependencies": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "material_assets": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/materialAsset"}
+    },
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["material_actions", "emergency_authority"],
+      "properties": {
+        "material_actions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/materialAction"}
+        },
+        "emergency_authority": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["accountable_role", "capabilities"],
+          "properties": {
+            "accountable_role": {"type": "string", "minLength": 1},
+            "capabilities": {"type": "array", "items": {"type": "string"}}
+          }
+        }
+      }
+    },
+    "financial_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "agents_can_spend": {"type": "boolean"},
+        "agents_can_move_assets": {"type": "boolean"},
+        "agents_can_enter_contracts": {"type": "boolean"},
+        "limits_summary": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "material_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "dependency_type", "failure_effect", "fallback"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "dependency_type": {"type": "string", "minLength": 1},
+          "failure_effect": {"type": "string", "minLength": 1},
+          "fallback": {"type": "string"}
+        }
+      }
+    },
+    "continuity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["single_points_of_failure", "recovery_summary"],
+      "properties": {
+        "single_points_of_failure": {"type": "array", "items": {"type": "string"}},
+        "recovery_summary": {"type": "string", "minLength": 1},
+        "maximum_disclosed_telemetry_staleness_seconds": {"type": "integer", "minimum": 0}
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "material_incident_classes": {"type": "array", "items": {"type": "string"}},
+        "last_material_incident": {"type": ["string", "null"], "format": "date-time"},
+        "last_material_architecture_change": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "evidence_manifest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "evidence_type", "reference"],
+        "properties": {
+          "claim": {"type": "string", "minLength": 1},
+          "evidence_type": {"type": "string", "minLength": 1},
+          "reference": {"type": "string", "minLength": 1},
+          "independent_attestation": {"type": "boolean"}
+        }
+      }
+    },
+    "disclosure_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["listing_state", "freshness_state", "last_verified_at"],
+      "properties": {
+        "listing_state": {
+          "enum": [
+            "APPLICANT",
+            "CONDITIONALLY_APPROVED",
+            "LISTED",
+            "LISTED_DEGRADED_DISCLOSURE",
+            "HALTED",
+            "SUSPENDED",
+            "DELISTING_REVIEW",
+            "DELISTED"
+          ]
+        },
+        "freshness_state": {
+          "enum": ["CURRENT", "DEGRADED", "STALE", "UNKNOWN"]
+        },
+        "last_verified_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  },
+  "$defs": {
+    "materialAsset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["asset_id", "asset_class", "status", "location_reference", "control_basis", "economic_role"],
+      "properties": {
+        "asset_id": {"type": "string", "minLength": 1},
+        "asset_class": {"type": "string", "minLength": 1},
+        "status": {"enum": ["planned", "in_launch_pipeline", "deployed", "operational", "degraded", "safe_mode", "lost", "retired"]},
+        "location_reference": {"type": "string", "minLength": 1},
+        "control_basis": {"type": "string", "minLength": 1},
+        "economic_role": {"type": "string", "minLength": 1},
+        "expected_operating_life_end": {"type": ["string", "null"], "format": "date"},
+        "evidence_reference": {"type": "string"}
+      }
+    },
+    "materialAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["action", "initiator", "approval_boundary", "logging_path", "revocation_path", "accountable_role"],
+      "properties": {
+        "action": {"type": "string", "minLength": 1},
+        "initiator": {"type": "string", "minLength": 1},
+        "approval_boundary": {"type": "string", "minLength": 1},
+        "credential_or_key_class": {"type": "string"},
+        "logging_path": {"type": "string", "minLength": 1},
+        "revocation_path": {"type": "string", "minLength": 1},
+        "accountable_role": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
