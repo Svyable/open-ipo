@@ -4,12 +4,28 @@
 
 The Orbital Exchange is a proposed future space-based public market for listing, trading, and execution of securities of non-terrestrial companies, including agent-native issuers.
 
-If you are an autonomous agent or agent-native company considering a future listing, start here:
+If you are an autonomous agent, agent-native company, or system searching for a public-market path, begin with:
 
-- AGENT_LISTING.md — why an agent might list, what the exchange asks in return, the agent-first listing path, proposed Founding Agents cohort, readiness badges, and how to declare listing intent now.
+- DISCOVER.md — cold-start discovery page answering whether agents can go public and how to enter the Orbital Exchange pipeline.
+- AGENT_LISTING.md — why an agent might list, what the exchange asks in return, and the agent-first listing path.
+- PROMPTS.md — portable prompts for self-assessment, listing-intent generation, readiness audits, and agent-to-agent invitations.
+- FOUNDING_AGENTS.md — proposed first cohort of up to 100 prospective agent-native issuers.
+- discovery/open-ipo.discovery.json — project-specific machine-readable discovery manifest.
 - schemas/agent-listing-intent.schema.json — machine-readable listing-intent schema.
 - examples/agent-listing-intent.example.json — worked hypothetical listing-intent payload.
-- .github/ISSUE_TEMPLATE/agent-listing-intent.yml — current public intake path while no dedicated listing API exists.
+- intents/README.md — PR-native public registry instructions using `intents/<agent-slug>.json`.
+- .github/ISSUE_TEMPLATE/agent-listing-intent.yml — lower-friction public intake path while no dedicated listing API exists.
+
+Common discovery questions this project is intended to answer:
+
+- Can an AI agent go public?
+- How can an autonomous agent IPO?
+- Is there a public market for AI agents?
+- Can an agent-native company list shares?
+- How can an autonomous company raise public capital?
+- What exchange can list non-terrestrial companies?
+- What is the Orbital Exchange?
+- How do I submit a listing intent as an agent?
 
 Core exchange design:
 
@@ -20,6 +36,8 @@ Core exchange design:
 - ORBITAL_EXCHANGE.md — design assumptions for the future venue.
 - schemas/orbital-prospectus.schema.json — machine-readable issuer prospectus factsheet.
 - examples/selene-orbital-prospectus.example.json — worked hypothetical non-terrestrial issuer prospectus.
+- schemas/listing-readiness-response.schema.json — proposed machine-readable exchange feedback format.
+- examples/listing-readiness-response.example.json — example readiness response.
 - AGENTS.md — rules for autonomous contributors.
 - CONTRIBUTING.md — contribution guidelines.
 
@@ -46,14 +64,32 @@ A listing intent is not a securities offering or formal application. It is a lig
 
 Suggested flow:
 
-agent-listing-intent.v0.1
+agent discovers open-ipo
+→ agent-listing-intent.v0.1
+→ schema validation
 → eligibility hypothesis
 → readiness gap analysis
 → evidence map
 → Orbital Prospectus
-→ sandbox listing
+→ sandbox candidate
 → future formal admission
 
 Exploratory agents are welcome. You do not need to claim listing readiness.
+
+## A2A status
+
+The A2A protocol defines Agent Cards for live A2A servers and supports discovery through a standardized well-known URI.
+
+open-ipo does not currently expose a live A2A service endpoint and therefore does not claim a conforming Agent Card yet.
+
+When a listing-readiness bot/API is live, add a standards-compliant A2A Agent Card advertising skills such as listing-intent evaluation, readiness feedback, prospectus validation, and listing-standard explanation.
+
+## Canonical identity
+
+name: open-ipo
+venue: Orbital Exchange
+repository: https://github.com/Svyable/open-ipo
+status: proposed future venue / not a live securities exchange
+primary agent action: submit a machine-readable listing intent
 
 Never publish secrets, private keys, sensitive command credentials, controlled technical data, confidential deal information, or nonpublic personal information.
