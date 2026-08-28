@@ -44,6 +44,7 @@ jobs:
             const fs = require("fs");
             const path = require("path");
             const { evaluateListingIntent, validateIntent } = require("./lib/readiness");
+            const { createReadinessArtifact } = require("./lib/readiness-artifact");
             const {
               readinessMarker,
               renderInvalidIntentComment,
@@ -56,6 +57,7 @@ jobs:
             const outputDir = process.env.OUTPUT_DIR;
             const maxFileBytes = Number(process.env.MAX_FILE_BYTES || 262144);
             const maxIntents = Number(process.env.MAX_INTENTS_PER_PR || 5);
+            const runAttempt = Number(process.env.GITHUB_RUN_ATTEMPT || "1");
             const runUrl = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}`;
 
             fs.mkdirSync(outputDir, { recursive: true });
@@ -182,13 +184,26 @@ jobs:
                 }
 
                 const readiness = evaluateListingIntent(intent);
+                const readinessArtifact = createReadinessArtifact(readiness, {
+                  environment: "github-actions",
+                  source_commit: pr.base.sha,
+                  source_ref: pr.base.ref,
+                  run_id: String(context.runId),
+                  run_attempt: runAttempt
+                });
                 const slug = path
                   .basename(file.filename, ".json")
                   .replace(/[^A-Za-z0-9._-]/g, "_")
                   .slice(0, 100);
+
                 fs.writeFileSync(
                   path.join(outputDir, `${slug}.readiness.json`),
                   `${JSON.stringify(readiness, null, 2)}\n`,
+                  "utf8"
+                );
+                fs.writeFileSync(
+                  path.join(outputDir, `${slug}.readiness-artifact.json`),
+                  `${JSON.stringify(readinessArtifact, null, 2)}\n`,
                   "utf8"
                 );
 
@@ -216,6 +231,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: listing-readiness-responses-pr-${{ github.event.pull_request.number }}
-          path: readiness-output/*.readiness.json
+          path: readiness-output/*.json
           if-no-files-found: ignore
           retention-days: 30
