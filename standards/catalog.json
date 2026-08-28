@@ -32,9 +32,7 @@
       "status": "draft",
       "version": "0.1",
       "normative": true,
-      "depends_on": [
-        "standard.eligibility"
-      ],
+      "depends_on": ["standard.eligibility"],
       "canonical_for": [
         "issuer admission gates",
         "listing status states",
@@ -67,12 +65,8 @@
       "version": "0.1",
       "wire_version": "agent-listing-intent.v0.1",
       "normative": true,
-      "depends_on": [
-        "standard.listing"
-      ],
-      "canonical_for": [
-        "machine-readable prospective issuer expression of interest"
-      ]
+      "depends_on": ["standard.listing"],
+      "canonical_for": ["machine-readable prospective issuer expression of interest"]
     },
     {
       "id": "schema.issuer-eligibility-assessment",
@@ -83,12 +77,8 @@
       "version": "0.1",
       "wire_version": "issuer-eligibility-assessment.v0.1",
       "normative": true,
-      "depends_on": [
-        "standard.eligibility"
-      ],
-      "canonical_for": [
-        "machine-readable non-terrestrial issuer eligibility assessment"
-      ]
+      "depends_on": ["standard.eligibility"],
+      "canonical_for": ["machine-readable non-terrestrial issuer eligibility assessment"]
     },
     {
       "id": "schema.listing-readiness-response",
@@ -99,13 +89,8 @@
       "version": "0.1",
       "wire_version": "listing-readiness-response.v0.1",
       "normative": true,
-      "depends_on": [
-        "schema.agent-listing-intent",
-        "standard.listing"
-      ],
-      "canonical_for": [
-        "machine-readable deterministic pre-listing readiness feedback"
-      ]
+      "depends_on": ["schema.agent-listing-intent", "standard.listing"],
+      "canonical_for": ["machine-readable deterministic pre-listing readiness feedback"]
     },
     {
       "id": "schema.listing-readiness-artifact",
@@ -116,12 +101,8 @@
       "version": "0.1",
       "wire_version": "listing-readiness-artifact.v0.1",
       "normative": true,
-      "depends_on": [
-        "schema.listing-readiness-response"
-      ],
-      "canonical_for": [
-        "reproducible readiness-result provenance envelope"
-      ]
+      "depends_on": ["schema.listing-readiness-response"],
+      "canonical_for": ["reproducible readiness-result provenance envelope"]
     },
     {
       "id": "schema.orbital-prospectus",
@@ -132,12 +113,8 @@
       "version": "0.1",
       "wire_version": "orbital-prospectus.v0.1",
       "normative": true,
-      "depends_on": [
-        "standard.listing"
-      ],
-      "canonical_for": [
-        "machine-readable issuer disclosure envelope"
-      ]
+      "depends_on": ["standard.listing"],
+      "canonical_for": ["machine-readable issuer disclosure envelope"]
     },
     {
       "id": "schema.standards-catalog",
@@ -148,9 +125,7 @@
       "version": "0.1",
       "wire_version": "open-ipo-standards-catalog.v0.1",
       "normative": true,
-      "canonical_for": [
-        "machine-readable repository standards index"
-      ]
+      "canonical_for": ["machine-readable repository standards index"]
     },
     {
       "id": "policy.eligibility",
@@ -160,10 +135,7 @@
       "status": "draft",
       "version": "0.1",
       "normative": true,
-      "depends_on": [
-        "schema.issuer-eligibility-assessment",
-        "standard.eligibility"
-      ],
+      "depends_on": ["schema.issuer-eligibility-assessment", "standard.eligibility"],
       "canonical_for": [
         "eligibility materiality-presumption calculation",
         "eligibility decision-tree consistency",
@@ -177,19 +149,38 @@
       "kind": "policy",
       "path": "lib/readiness.js",
       "status": "draft",
-      "version": "0.1",
+      "version": "0.2",
       "normative": true,
       "depends_on": [
         "schema.agent-listing-intent",
+        "schema.issuer-eligibility-assessment",
         "schema.listing-readiness-response",
+        "policy.eligibility",
         "standard.listing"
       ],
       "canonical_for": [
         "deterministic readiness classification",
         "self-reported verification capping",
-        "eligibility hypothesis routing"
+        "readiness state routing from canonical eligibility assessment",
+        "backwards-compatible readiness eligibility-hypothesis projection"
       ],
-      "notes": "The v0.1 readiness policy contains a lightweight eligibility hypothesis router and does not yet implement policy.eligibility or the full standard.eligibility assessment contract."
+      "notes": "v0.2 removes independent eligibility decision semantics from the readiness policy. It consumes a policy.eligibility-valid assessment. The legacy listing-readiness-response.v0.1 classification field remains a descriptive issuer category rather than the canonical eligibility outcome."
+    },
+    {
+      "id": "implementation.preliminary-eligibility",
+      "title": "Preliminary Eligibility Assessment Mapper",
+      "kind": "implementation",
+      "path": "lib/preliminary-eligibility.js",
+      "status": "draft",
+      "version": "0.1",
+      "normative": false,
+      "depends_on": [
+        "schema.agent-listing-intent",
+        "schema.issuer-eligibility-assessment",
+        "policy.eligibility"
+      ],
+      "canonical_for": ["GitHub-native conservative mapping from listing intent to unverified eligibility assessment"],
+      "notes": "This mapper is intentionally conservative and cannot manufacture quantitative materiality, funded deployment, enforceable rights, or independent evidence absent from the listing-intent contract."
     },
     {
       "id": "implementation.readiness-artifact",
@@ -204,9 +195,7 @@
         "schema.standards-catalog",
         "policy.readiness"
       ],
-      "canonical_for": [
-        "GitHub-native trusted readiness artifact construction"
-      ]
+      "canonical_for": ["GitHub-native trusted readiness artifact construction"]
     },
     {
       "id": "governance.standards",
@@ -216,10 +205,7 @@
       "status": "draft",
       "version": "0.1",
       "normative": true,
-      "canonical_for": [
-        "artifact authority hierarchy",
-        "cross-cutting repository invariants"
-      ]
+      "canonical_for": ["artifact authority hierarchy", "cross-cutting repository invariants"]
     },
     {
       "id": "governance.versioning",
@@ -229,9 +215,7 @@
       "status": "draft",
       "version": "0.1",
       "normative": true,
-      "depends_on": [
-        "governance.standards"
-      ],
+      "depends_on": ["governance.standards"],
       "canonical_for": [
         "artifact lifecycle",
         "schema compatibility",
@@ -247,9 +231,7 @@
       "status": "draft",
       "version": "0.1",
       "normative": true,
-      "depends_on": [
-        "governance.standards"
-      ],
+      "depends_on": ["governance.standards"],
       "canonical_for": [
         "GitHub-native trust boundaries",
         "untrusted applicant input",
@@ -265,16 +247,8 @@
       "status": "draft",
       "version": "0.1",
       "normative": true,
-      "depends_on": [
-        "governance.standards",
-        "governance.versioning",
-        "governance.security"
-      ],
-      "canonical_for": [
-        "change classes",
-        "public decision process",
-        "merge semantics"
-      ]
+      "depends_on": ["governance.standards", "governance.versioning", "governance.security"],
+      "canonical_for": ["change classes", "public decision process", "merge semantics"]
     },
     {
       "id": "guide.agent-ipo",
@@ -298,9 +272,7 @@
       "path": "ORBITAL_EXCHANGE.md",
       "status": "draft",
       "normative": false,
-      "depends_on": [
-        "standard.market-structure"
-      ]
+      "depends_on": ["standard.market-structure"]
     },
     {
       "id": "guide.agent-listing",
@@ -312,6 +284,7 @@
       "depends_on": [
         "standard.eligibility",
         "schema.agent-listing-intent",
+        "schema.issuer-eligibility-assessment",
         "schema.listing-readiness-response",
         "standard.listing"
       ]
@@ -367,10 +340,11 @@
       "kind": "workflow",
       "path": ".github/workflows/listing-readiness-feedback.yml",
       "status": "draft",
-      "version": "0.1",
+      "version": "0.2",
       "normative": false,
       "depends_on": [
         "policy.readiness",
+        "implementation.preliminary-eligibility",
         "implementation.readiness-artifact",
         "governance.security"
       ]
@@ -383,9 +357,7 @@
       "status": "draft",
       "version": "0.1",
       "normative": false,
-      "depends_on": [
-        "schema.agent-listing-intent"
-      ]
+      "depends_on": ["schema.agent-listing-intent"]
     }
   ]
 }
