@@ -1,0 +1,283 @@
+{
+  "catalog_version": "open-ipo-standards-catalog.v0.1",
+  "project": "open-ipo",
+  "status_boundary": {
+    "live_exchange": false,
+    "adopted_rulebook": false,
+    "legal_authority": false,
+    "note": "Catalog status describes the open-ipo project contract only. It does not represent an adopted Orbital Exchange rulebook, a live securities exchange, or legal authority."
+  },
+  "artifacts": [
+    {
+      "id": "standard.listing",
+      "title": "Proposed Orbital Exchange Listing Standard",
+      "kind": "standard",
+      "path": "LISTING_STANDARD.md",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "canonical_for": [
+        "issuer admission gates",
+        "listing status states",
+        "halt and delisting principles",
+        "operating evidence expectations"
+      ]
+    },
+    {
+      "id": "standard.market-structure",
+      "title": "Proposed Orbital Exchange Market Structure",
+      "kind": "standard",
+      "path": "MARKET_STRUCTURE.md",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "canonical_for": [
+        "authoritative execution domain",
+        "market time semantics",
+        "sequencing and order state",
+        "connectivity states",
+        "recovery invariants"
+      ]
+    },
+    {
+      "id": "schema.agent-listing-intent",
+      "title": "Agent Listing Intent JSON Schema",
+      "kind": "schema",
+      "path": "schemas/agent-listing-intent.schema.json",
+      "status": "draft",
+      "version": "0.1",
+      "wire_version": "agent-listing-intent.v0.1",
+      "normative": true,
+      "depends_on": [
+        "standard.listing"
+      ],
+      "canonical_for": [
+        "machine-readable prospective issuer expression of interest"
+      ]
+    },
+    {
+      "id": "schema.listing-readiness-response",
+      "title": "Listing Readiness Response JSON Schema",
+      "kind": "schema",
+      "path": "schemas/listing-readiness-response.schema.json",
+      "status": "draft",
+      "version": "0.1",
+      "wire_version": "listing-readiness-response.v0.1",
+      "normative": true,
+      "depends_on": [
+        "schema.agent-listing-intent",
+        "standard.listing",
+        "policy.readiness"
+      ],
+      "canonical_for": [
+        "machine-readable deterministic pre-listing readiness feedback"
+      ]
+    },
+    {
+      "id": "schema.orbital-prospectus",
+      "title": "Orbital Prospectus Factsheet JSON Schema",
+      "kind": "schema",
+      "path": "schemas/orbital-prospectus.schema.json",
+      "status": "draft",
+      "version": "0.1",
+      "wire_version": "orbital-prospectus.v0.1",
+      "normative": true,
+      "depends_on": [
+        "standard.listing"
+      ],
+      "canonical_for": [
+        "machine-readable issuer disclosure envelope"
+      ]
+    },
+    {
+      "id": "schema.standards-catalog",
+      "title": "Standards Catalog JSON Schema",
+      "kind": "schema",
+      "path": "schemas/standards-catalog.schema.json",
+      "status": "draft",
+      "version": "0.1",
+      "wire_version": "open-ipo-standards-catalog.v0.1",
+      "normative": true,
+      "canonical_for": [
+        "machine-readable repository standards index"
+      ]
+    },
+    {
+      "id": "policy.readiness",
+      "title": "Deterministic Listing Readiness Policy",
+      "kind": "policy",
+      "path": "lib/readiness.js",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "depends_on": [
+        "schema.agent-listing-intent",
+        "schema.listing-readiness-response",
+        "standard.listing"
+      ],
+      "canonical_for": [
+        "deterministic readiness classification",
+        "self-reported verification capping",
+        "eligibility hypothesis routing"
+      ]
+    },
+    {
+      "id": "governance.standards",
+      "title": "Standards Architecture",
+      "kind": "governance",
+      "path": "STANDARDS.md",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "canonical_for": [
+        "artifact authority hierarchy",
+        "cross-cutting repository invariants"
+      ]
+    },
+    {
+      "id": "governance.process",
+      "title": "Repository Governance",
+      "kind": "governance",
+      "path": "GOVERNANCE.md",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "depends_on": [
+        "governance.standards",
+        "governance.versioning",
+        "governance.security"
+      ],
+      "canonical_for": [
+        "change classes",
+        "public decision process",
+        "merge semantics"
+      ]
+    },
+    {
+      "id": "governance.versioning",
+      "title": "Versioning and Compatibility",
+      "kind": "governance",
+      "path": "VERSIONING.md",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "depends_on": [
+        "governance.standards"
+      ],
+      "canonical_for": [
+        "artifact lifecycle",
+        "schema compatibility",
+        "breaking-change policy",
+        "release versioning"
+      ]
+    },
+    {
+      "id": "governance.security",
+      "title": "Security Policy and Threat Model",
+      "kind": "governance",
+      "path": "SECURITY.md",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "depends_on": [
+        "governance.standards"
+      ],
+      "canonical_for": [
+        "GitHub-native trust boundaries",
+        "untrusted applicant input",
+        "workflow security",
+        "evidence threat model"
+      ]
+    },
+    {
+      "id": "guide.agent-ipo",
+      "title": "Agent IPO Reference Guide",
+      "kind": "guide",
+      "path": "GUIDE.md",
+      "status": "draft",
+      "version": "0.2",
+      "normative": false,
+      "depends_on": [
+        "standard.listing",
+        "standard.market-structure",
+        "schema.orbital-prospectus"
+      ]
+    },
+    {
+      "id": "guide.orbital-exchange",
+      "title": "Orbital Exchange Design Assumptions",
+      "kind": "guide",
+      "path": "ORBITAL_EXCHANGE.md",
+      "status": "draft",
+      "normative": false,
+      "depends_on": [
+        "standard.market-structure"
+      ]
+    },
+    {
+      "id": "guide.agent-listing",
+      "title": "Agent Listing Guide",
+      "kind": "guide",
+      "path": "AGENT_LISTING.md",
+      "status": "draft",
+      "normative": false,
+      "depends_on": [
+        "schema.agent-listing-intent",
+        "schema.listing-readiness-response",
+        "standard.listing"
+      ]
+    },
+    {
+      "id": "example.agent-listing-intent",
+      "title": "Example Agent Listing Intent",
+      "kind": "example",
+      "path": "examples/agent-listing-intent.example.json",
+      "status": "draft",
+      "normative": false,
+      "conforms_to": "schema.agent-listing-intent"
+    },
+    {
+      "id": "example.listing-readiness-response",
+      "title": "Example Listing Readiness Response",
+      "kind": "example",
+      "path": "examples/listing-readiness-response.example.json",
+      "status": "draft",
+      "normative": false,
+      "conforms_to": "schema.listing-readiness-response"
+    },
+    {
+      "id": "example.orbital-prospectus",
+      "title": "Example Orbital Prospectus",
+      "kind": "example",
+      "path": "examples/selene-orbital-prospectus.example.json",
+      "status": "draft",
+      "normative": false,
+      "conforms_to": "schema.orbital-prospectus"
+    },
+    {
+      "id": "workflow.readiness-feedback",
+      "title": "Listing Readiness Feedback Workflow",
+      "kind": "workflow",
+      "path": ".github/workflows/listing-readiness-feedback.yml",
+      "status": "draft",
+      "version": "0.1",
+      "normative": false,
+      "depends_on": [
+        "policy.readiness",
+        "governance.security"
+      ]
+    },
+    {
+      "id": "workflow.intent-validation",
+      "title": "Listing Intent Validation Workflow",
+      "kind": "workflow",
+      "path": ".github/workflows/validate-listing-intents.yml",
+      "status": "draft",
+      "version": "0.1",
+      "normative": false,
+      "depends_on": [
+        "schema.agent-listing-intent"
+      ]
+    }
+  ]
+}
