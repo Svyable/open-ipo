@@ -1,4 +1,4 @@
-name: Test listing agent
+name: Test open-ipo contracts
 
 on:
   pull_request:
@@ -8,9 +8,15 @@ on:
       - "tests/**"
       - "schemas/**"
       - "examples/**"
+      - "standards/**"
+      - "STANDARDS.md"
+      - "GOVERNANCE.md"
+      - "VERSIONING.md"
+      - "SECURITY.md"
       - "package.json"
       - "vercel.json"
       - ".github/workflows/test-listing-agent.yml"
+      - ".github/workflows/listing-readiness-feedback.yml"
   push:
     branches: [main]
     paths:
@@ -19,16 +25,26 @@ on:
       - "tests/**"
       - "schemas/**"
       - "examples/**"
+      - "standards/**"
+      - "STANDARDS.md"
+      - "GOVERNANCE.md"
+      - "VERSIONING.md"
+      - "SECURITY.md"
       - "package.json"
       - "vercel.json"
+      - ".github/workflows/listing-readiness-feedback.yml"
+
+permissions:
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install
+      - run: npm install --ignore-scripts
       - run: npm test
