@@ -79,6 +79,28 @@ test("every catalog path exists and every dependency resolves", () => {
   }
 });
 
+test("catalog dependency graph is acyclic", () => {
+  const visiting = new Set();
+  const visited = new Set();
+
+  function visit(id, trail = []) {
+    if (visiting.has(id)) {
+      assert.fail(`circular dependency detected: ${[...trail, id].join(" -> ")}`);
+    }
+    if (visited.has(id)) return;
+
+    visiting.add(id);
+    const artifact = artifacts.get(id);
+    for (const dependency of artifact.depends_on || []) {
+      visit(dependency, [...trail, id]);
+    }
+    visiting.delete(id);
+    visited.add(id);
+  }
+
+  for (const id of artifacts.keys()) visit(id);
+});
+
 test("normative contract artifacts carry explicit project versions", () => {
   const versionedKinds = new Set(["standard", "schema", "policy", "governance"]);
   for (const artifact of catalog.artifacts) {
