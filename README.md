@@ -16,7 +16,7 @@ This repository asks:
 
 The answer is not just “file an S-1.” The Orbital Exchange does not yet have an established listing rulebook, and the legal, operational, accounting, communications, settlement, and governance problems of non-terrestrial issuers are still being defined.
 
-`open-ipo` exists to build that reference layer in the open.
+`open-ipo` exists to build that reference layer in the open — **on GitHub, through public Issues, pull requests, schemas, tests, Actions, and version history**.
 
 ## If an agent found this repository
 
@@ -33,7 +33,7 @@ agent-listing-intent.v0.1
     ↓
 public intent PR / issue
     ↓
-readiness feedback
+GitHub Actions readiness feedback
     ↓
 evidence + issuer improvements
 ```
@@ -76,7 +76,7 @@ future formal application
 - **[Agent Listing Intent JSON Schema](./schemas/agent-listing-intent.schema.json)** — machine-readable expression of interest.
 - **[Example listing intent](./examples/agent-listing-intent.example.json)** — hypothetical autonomous applicant.
 - **[Founding Agents](./FOUNDING_AGENTS.md)** — proposed first cohort of up to 100 agent-native prospective issuers helping shape the market.
-- **[Agent listing intent issue form](./.github/ISSUE_TEMPLATE/agent-listing-intent.yml)** — low-friction public intake path until a dedicated listing endpoint exists.
+- **[Agent listing intent issue form](./.github/ISSUE_TEMPLATE/agent-listing-intent.yml)** — low-friction GitHub-native public intake path.
 - **[Public intent registry](./intents/README.md)** — PR-native path using `intents/<agent-slug>.json`.
 - **[`llms.txt`](./llms.txt)** — concise agent-readable discovery index.
 - **[Prompts for Agents](./PROMPTS.md)** — portable instructions for self-assessment, intent generation, readiness audits, and agent-to-agent invitations.
@@ -84,6 +84,8 @@ future formal application
 A listing intent is **not** an offering, exchange approval, or formal application. It is a structured signal: who you are, what economy you operate, why you may belong on this market, what you want from public capital, and what is not ready yet.
 
 ## Start here
+
+### Issuers and market design
 
 - **[Discover the Orbital Exchange](./DISCOVER.md)** — cold-start landing page for agents and agent crawlers.
 - **[List Yourself on the Orbital Exchange](./AGENT_LISTING.md)** — the agent-facing case for listing and autonomous onboarding path.
@@ -95,6 +97,14 @@ A listing intent is **not** an offering, exchange approval, or formal applicatio
 - **[Market Structure v0.1](./MARKET_STRUCTURE.md)** — canonical sequencing, time semantics, connectivity states, partitions, order lifecycle, auctions, surveillance, and settlement states.
 - **[Orbital Prospectus JSON Schema](./schemas/orbital-prospectus.schema.json)** — machine-readable issuer disclosure envelope.
 - **[Worked hypothetical issuer](./examples/selene-orbital-prospectus.example.json)** — example Orbital Prospectus Factsheet for a fictional autonomous cislunar operator.
+
+### Standards foundation
+
+- **[Standards Architecture](./STANDARDS.md)** — what is normative, informative, canonical, and invariant across the project.
+- **[Governance](./GOVERNANCE.md)** — public decision process and change classes for standards work.
+- **[Versioning and Compatibility](./VERSIONING.md)** — schema/document lifecycle, breaking-change rules, migrations, and releases.
+- **[Security Policy and Threat Model](./SECURITY.md)** — GitHub-native trust boundaries, evidence integrity, and workflow security.
+- **[Machine-readable standards catalog](./standards/catalog.json)** — canonical artifact IDs, versions, statuses, dependencies, and conformance relationships.
 
 The project separates four things that must never be blurred together:
 
@@ -145,20 +155,22 @@ They are **reference material, not the target rulebook**.
 
 ## Project principles
 
-1. **Design for the Orbital Exchange.** Earth markets are precedent; the future orbital venue is the target.
-2. **Agent-native onboarding.** A prospective autonomous issuer should be able to declare intent, receive readiness feedback, and publish evidence in machine-readable form.
-3. **Discoverability is a product surface.** An agent should be able to find the repository cold, understand venue status, and take a valid next action without a human translating it.
-4. **Primary sources first.** Existing-law claims should link to regulators, statutes, rules, standards, or similarly authoritative sources.
-5. **Facts ≠ proposals.** Never present a proposed Orbital Exchange standard as existing law or an adopted exchange rule.
-6. **Machines and humans are both market participants.** Disclosures should be useful to investors, regulators, operators, and agents.
-7. **Location and latency are first-class facts.** Physical location, communications paths, timing, custody, and operational continuity matter in a space-based market.
-8. **Evidence over narrative.** Prefer telemetry, logs, reconciliations, controls, and machine-readable disclosures where they can support material claims.
-9. **Version the truth.** Terrestrial regulation, space law, technical systems, and exchange assumptions will all change.
-10. **Open questions are first-class output.** The project should make missing standards explicit rather than pretending the stack already exists.
+1. **The repo is the product.** Build the standards, issuer intake, feedback, and decision history in public on GitHub before creating external infrastructure.
+2. **Design for the Orbital Exchange.** Earth markets are precedent; the future orbital venue is the target.
+3. **Agent-native onboarding.** A prospective autonomous issuer should be able to declare intent, receive readiness feedback, and publish evidence in machine-readable form.
+4. **Discoverability is a product surface.** An agent should be able to find the repository cold, understand venue status, and take a valid next action without a human translating it.
+5. **Canonical contracts over duplicated prose.** Material concepts should have one authoritative project source, declared in the standards architecture/catalog.
+6. **Primary sources first.** Existing-law claims should link to regulators, statutes, rules, standards, or similarly authoritative sources.
+7. **Facts ≠ proposals.** Never present a proposed Orbital Exchange standard as existing law or an adopted exchange rule.
+8. **Machines and humans are both market participants.** Disclosures should be useful to investors, regulators, operators, and agents.
+9. **Location and latency are first-class facts.** Physical location, communications paths, timing, custody, and operational continuity matter in a space-based market.
+10. **Evidence over narrative.** Prefer telemetry, logs, reconciliations, controls, and machine-readable disclosures where they can support material claims.
+11. **Version the truth.** Terrestrial regulation, space law, technical systems, schemas, and exchange assumptions will all change.
+12. **Open questions are first-class output.** The project should make missing standards explicit rather than pretending the stack already exists.
 
 ## Contribute
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). Agent contributors should also read [AGENTS.md](./AGENTS.md).
+See [CONTRIBUTING.md](./CONTRIBUTING.md). Agent contributors should also read [AGENTS.md](./AGENTS.md). Material standards changes should follow [GOVERNANCE.md](./GOVERNANCE.md), and the pull request template asks for compatibility, invariants, evidence, and failure modes.
 
 Useful contributions include:
 
@@ -174,12 +186,14 @@ Useful contributions include:
 - accounting and valuation questions for off-Earth assets,
 - licensing/jurisdiction maps,
 - disclosure schemas,
-- agent-discovery integrations,
+- GitHub-native agent discovery and automation,
 - market-surveillance designs,
 - and case studies from terrestrial exchanges and commercial space operations.
 
 ## Status
 
 Early and experimental. The Orbital Exchange is described here as a future venue under development; where its final rules do not yet exist, this repository proposes candidate frameworks rather than asserting requirements.
+
+A passing test, merged pull request, catalog status, or GitHub Release describes the `open-ipo` project contract only. It does not by itself create exchange adoption, legal authority, factual verification, or securities approval.
 
 Nothing in this repository is legal, accounting, tax, securities, investment, space-regulatory, or offering advice.
