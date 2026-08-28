@@ -9,6 +9,22 @@
   },
   "artifacts": [
     {
+      "id": "standard.eligibility",
+      "title": "Proposed Non-Terrestrial Issuer Eligibility Standard",
+      "kind": "standard",
+      "path": "ELIGIBILITY_STANDARD.md",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "canonical_for": [
+        "non-terrestrial issuer classification",
+        "hybrid Earth-space issuer classification",
+        "pre-operational non-terrestrial candidate pathway",
+        "eligibility materiality presumptions",
+        "eligibility anti-gaming rules"
+      ]
+    },
+    {
       "id": "standard.listing",
       "title": "Proposed Orbital Exchange Listing Standard",
       "kind": "standard",
@@ -16,6 +32,9 @@
       "status": "draft",
       "version": "0.1",
       "normative": true,
+      "depends_on": [
+        "standard.eligibility"
+      ],
       "canonical_for": [
         "issuer admission gates",
         "listing status states",
@@ -53,6 +72,22 @@
       ],
       "canonical_for": [
         "machine-readable prospective issuer expression of interest"
+      ]
+    },
+    {
+      "id": "schema.issuer-eligibility-assessment",
+      "title": "Issuer Eligibility Assessment JSON Schema",
+      "kind": "schema",
+      "path": "schemas/issuer-eligibility-assessment.schema.json",
+      "status": "draft",
+      "version": "0.1",
+      "wire_version": "issuer-eligibility-assessment.v0.1",
+      "normative": true,
+      "depends_on": [
+        "standard.eligibility"
+      ],
+      "canonical_for": [
+        "machine-readable non-terrestrial issuer eligibility assessment"
       ]
     },
     {
@@ -134,7 +169,8 @@
         "deterministic readiness classification",
         "self-reported verification capping",
         "eligibility hypothesis routing"
-      ]
+      ],
+      "notes": "The v0.1 readiness policy contains a lightweight eligibility hypothesis router and does not yet implement the full standard.eligibility assessment contract."
     },
     {
       "id": "implementation.readiness-artifact",
@@ -230,6 +266,7 @@
       "version": "0.2",
       "normative": false,
       "depends_on": [
+        "standard.eligibility",
         "standard.listing",
         "standard.market-structure",
         "schema.orbital-prospectus"
@@ -254,6 +291,7 @@
       "status": "draft",
       "normative": false,
       "depends_on": [
+        "standard.eligibility",
         "schema.agent-listing-intent",
         "schema.listing-readiness-response",
         "standard.listing"
@@ -267,6 +305,15 @@
       "status": "draft",
       "normative": false,
       "conforms_to": "schema.agent-listing-intent"
+    },
+    {
+      "id": "example.issuer-eligibility-assessment",
+      "title": "Example Issuer Eligibility Assessment",
+      "kind": "example",
+      "path": "examples/issuer-eligibility-assessment.example.json",
+      "status": "draft",
+      "normative": false,
+      "conforms_to": "schema.issuer-eligibility-assessment"
     },
     {
       "id": "example.listing-readiness-response",
