@@ -27,7 +27,9 @@ Examples:
 
 ```text
 agent-listing-intent.v0.1
+issuer-eligibility-assessment.v0.1
 listing-readiness-response.v0.1
+listing-readiness-artifact.v0.1
 orbital-prospectus.v0.1
 ```
 
@@ -105,9 +107,9 @@ Examples:
 
 Such changes are breaking even if the JSON shape is unchanged.
 
-## 6. Readiness-policy versioning
+## 6. Deterministic-policy versioning
 
-`lib/readiness.js` is a deterministic policy implementation.
+Policies such as `lib/eligibility.js` and `lib/readiness.js` are executable normative behavior.
 
 Changes that can alter a valid applicant's:
 
@@ -116,12 +118,41 @@ Changes that can alter a valid applicant's:
 - blocking questions,
 - priority of required actions,
 - verification semantics,
+- state-transition routing,
 
-must be treated as normative behavior changes.
+must be treated as normative behavior changes even when the JSON wire schema does not change.
 
-The standards catalog declares a policy version for the evaluator.
+The standards catalog declares a version for each normative deterministic policy.
 
-Before downstream reliance grows, readiness responses should also expose the evaluator/ruleset version directly in the wire format. Until then, Git commit + catalog version are the audit reference.
+### Eligibility policy
+
+`policy.eligibility` owns the canonical project-level eligibility decision semantics.
+
+Readiness implementations should consume a policy-valid eligibility assessment rather than duplicate the eligibility decision tree.
+
+### Readiness policy
+
+`policy.readiness` may project eligibility into a backwards-compatible readiness field, but a projection must not silently become a second canonical eligibility definition.
+
+A change such as `policy.readiness 0.1 → 0.2` may therefore be semantically material while keeping `listing-readiness-response.v0.1` parser-compatible.
+
+Such a change requires:
+
+- a policy-version bump,
+- a migration note,
+- updated examples,
+- tests covering changed routing semantics.
+
+### Provenance
+
+`listing-readiness-artifact.v0.1` records:
+
+- readiness-policy version,
+- standards-catalog version,
+- trusted source commit,
+- execution context.
+
+The response wire format does not need to duplicate those fields merely to make GitHub-native outputs reproducible.
 
 ## 7. Status lifecycle
 
@@ -175,9 +206,17 @@ Examples:
 ```text
 agent-listing-intent schema
         ↓
-readiness evaluator
+preliminary eligibility mapper
         ↓
-listing-readiness response example
+eligibility assessment
+        ↓
+policy.eligibility
+        ↓
+policy.readiness
+        ↓
+listing-readiness response
+        ↓
+readiness provenance artifact
         ↓
 GitHub Actions feedback
 ```
@@ -196,17 +235,19 @@ disclosure guidance
 
 ## 9. Migration notes
 
-A breaking change must explain:
+A breaking or materially semantic policy change must explain:
 
 1. old behavior,
 2. new behavior,
-3. why the break is necessary,
-4. how to detect old/new payloads,
-5. how to transform or regenerate data,
+3. why the change is necessary,
+4. how to detect old/new outputs,
+5. how to transform or regenerate data where appropriate,
 6. whether both versions remain supported,
-7. what happens to historical listing intents and readiness artifacts.
+7. what happens to historical listing intents, eligibility assessments, and readiness artifacts.
 
 Historical public records should not be rewritten merely to make them look current.
+
+Migration notes belong in `migrations/` when they affect downstream interpretation or implementation behavior.
 
 ## 10. Historical reproducibility
 
@@ -216,15 +257,16 @@ The repository should preserve enough information to answer:
 
 For GitHub-native workflows, the primary reconstruction inputs are:
 
-- commit SHA,
-- schema version,
+- submitted listing-intent payload,
+- eligibility-assessment payload,
+- readiness-response payload,
+- readiness provenance artifact,
+- policy versions,
 - catalog version,
-- evaluator source at that commit,
-- workflow run,
-- submitted intent payload,
-- generated artifact.
+- trusted source commit,
+- workflow run and attempt.
 
-As the project matures, generated readiness artifacts should record the relevant evaluator/catalog version explicitly.
+The canonical readiness workflow emits sibling eligibility, readiness, and provenance JSON artifacts so a later reader can distinguish input-derived assessment state from the readiness decision built on top of it.
 
 ## 11. GitHub Releases
 
@@ -241,7 +283,7 @@ Release notes should include:
 - catalog version,
 - normative standards and statuses,
 - schema versions,
-- readiness-policy version,
+- deterministic policy versions,
 - breaking changes,
 - migration notes,
 - security-relevant changes,
@@ -265,5 +307,7 @@ The most important compatibility rule is:
 > **Never change the meaning of a published state or field without making the semantic change visible.**
 
 If a prior record says `READY`, future readers should be able to reconstruct what `READY` meant under that version.
+
+If a backwards-compatible field remains in a wire schema after a stronger canonical contract is introduced, documentation must state which contract is authoritative.
 
 That rule matters more than keeping a version number aesthetically small.
