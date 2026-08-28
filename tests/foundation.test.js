@@ -28,6 +28,14 @@ function relativeFiles(directory, suffix) {
     .sort();
 }
 
+function repositoryAjv() {
+  const ajv = newAjv();
+  for (const schemaPath of relativeFiles("schemas", ".schema.json")) {
+    ajv.addSchema(readJson(path.join(ROOT, schemaPath)));
+  }
+  return ajv;
+}
+
 const catalog = readJson(CATALOG_PATH);
 const artifacts = new Map(catalog.artifacts.map((artifact) => [artifact.id, artifact]));
 
@@ -114,7 +122,7 @@ test("normative contract artifacts carry explicit project versions", () => {
   }
 });
 
-test("all JSON schemas are cataloged and compile as draft 2020-12 schemas", () => {
+test("all JSON schemas are cataloged and resolve as draft 2020-12 contracts", () => {
   const schemaFiles = relativeFiles("schemas", ".schema.json");
   const cataloged = catalog.artifacts
     .filter((artifact) => artifact.kind === "schema")
@@ -123,6 +131,7 @@ test("all JSON schemas are cataloged and compile as draft 2020-12 schemas", () =
 
   assert.deepEqual(cataloged, schemaFiles, "schemas/ contains an uncataloged or missing schema");
 
+  const ajv = repositoryAjv();
   for (const artifact of catalog.artifacts.filter((item) => item.kind === "schema")) {
     const schema = readJson(path.join(ROOT, artifact.path));
     assert.equal(
@@ -131,7 +140,11 @@ test("all JSON schemas are cataloged and compile as draft 2020-12 schemas", () =
       `${artifact.id} must use JSON Schema draft 2020-12`
     );
     assert.match(schema.$id || "", /^https:\/\//, `${artifact.id} must have an absolute HTTPS $id`);
-    assert.doesNotThrow(() => newAjv().compile(schema), `${artifact.id} must compile`);
+    assert.doesNotThrow(
+      () => ajv.getSchema(schema.$id),
+      `${artifact.id} and all referenced repository schemas must resolve`
+    );
+    assert.ok(ajv.getSchema(schema.$id), `${artifact.id} must compile`);
   }
 });
 
@@ -140,6 +153,7 @@ test("schema wire versions agree with the catalog", () => {
     const schema = readJson(path.join(ROOT, artifact.path));
     const declared =
       schema.properties?.schema_version?.const ||
+      schema.properties?.artifact_version?.const ||
       schema.properties?.catalog_version?.const;
 
     assert.equal(
@@ -159,12 +173,14 @@ test("all JSON examples are cataloged and validate against their declared schema
 
   assert.deepEqual(cataloged, exampleFiles, "examples/ contains an uncataloged or missing JSON example");
 
+  const ajv = repositoryAjv();
   for (const artifact of catalog.artifacts.filter((item) => item.kind === "example")) {
     assert.ok(artifact.conforms_to, `${artifact.id} must declare conforms_to`);
     const schemaArtifact = artifacts.get(artifact.conforms_to);
     const schema = readJson(path.join(ROOT, schemaArtifact.path));
     const example = readJson(path.join(ROOT, artifact.path));
-    const validate = newAjv().compile(schema);
+    const validate = ajv.getSchema(schema.$id);
+    assert.ok(validate, `${artifact.conforms_to} must resolve in repository schema registry`);
     const valid = validate(example);
     assert.equal(
       valid,

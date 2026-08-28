@@ -73,6 +73,22 @@
       ]
     },
     {
+      "id": "schema.listing-readiness-artifact",
+      "title": "Listing Readiness Artifact JSON Schema",
+      "kind": "schema",
+      "path": "schemas/listing-readiness-artifact.schema.json",
+      "status": "draft",
+      "version": "0.1",
+      "wire_version": "listing-readiness-artifact.v0.1",
+      "normative": true,
+      "depends_on": [
+        "schema.listing-readiness-response"
+      ],
+      "canonical_for": [
+        "reproducible readiness-result provenance envelope"
+      ]
+    },
+    {
       "id": "schema.orbital-prospectus",
       "title": "Orbital Prospectus Factsheet JSON Schema",
       "kind": "schema",
@@ -118,6 +134,23 @@
         "deterministic readiness classification",
         "self-reported verification capping",
         "eligibility hypothesis routing"
+      ]
+    },
+    {
+      "id": "implementation.readiness-artifact",
+      "title": "Listing Readiness Artifact Builder",
+      "kind": "implementation",
+      "path": "lib/readiness-artifact.js",
+      "status": "draft",
+      "version": "0.1",
+      "normative": false,
+      "depends_on": [
+        "schema.listing-readiness-artifact",
+        "schema.standards-catalog",
+        "policy.readiness"
+      ],
+      "canonical_for": [
+        "GitHub-native trusted readiness artifact construction"
       ]
     },
     {
@@ -245,6 +278,15 @@
       "conforms_to": "schema.listing-readiness-response"
     },
     {
+      "id": "example.listing-readiness-artifact",
+      "title": "Example Listing Readiness Artifact",
+      "kind": "example",
+      "path": "examples/listing-readiness-artifact.example.json",
+      "status": "draft",
+      "normative": false,
+      "conforms_to": "schema.listing-readiness-artifact"
+    },
+    {
       "id": "example.orbital-prospectus",
       "title": "Example Orbital Prospectus",
       "kind": "example",
@@ -263,6 +305,7 @@
       "normative": false,
       "depends_on": [
         "policy.readiness",
+        "implementation.readiness-artifact",
         "governance.security"
       ]
     },
