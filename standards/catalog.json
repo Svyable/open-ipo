@@ -153,6 +153,25 @@
       ]
     },
     {
+      "id": "policy.eligibility",
+      "title": "Deterministic Issuer Eligibility Consistency Policy",
+      "kind": "policy",
+      "path": "lib/eligibility.js",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "depends_on": [
+        "schema.issuer-eligibility-assessment",
+        "standard.eligibility"
+      ],
+      "canonical_for": [
+        "eligibility materiality-presumption calculation",
+        "eligibility decision-tree consistency",
+        "deterministic eligibility classification routing"
+      ],
+      "notes": "This policy checks internal consistency of a structured eligibility assessment. It does not verify the underlying issuer facts or evidence."
+    },
+    {
       "id": "policy.readiness",
       "title": "Deterministic Listing Readiness Policy",
       "kind": "policy",
@@ -170,7 +189,7 @@
         "self-reported verification capping",
         "eligibility hypothesis routing"
       ],
-      "notes": "The v0.1 readiness policy contains a lightweight eligibility hypothesis router and does not yet implement the full standard.eligibility assessment contract."
+      "notes": "The v0.1 readiness policy contains a lightweight eligibility hypothesis router and does not yet implement policy.eligibility or the full standard.eligibility assessment contract."
     },
     {
       "id": "implementation.readiness-artifact",
