@@ -190,6 +190,40 @@ test("all JSON examples are cataloged and validate against their declared schema
   }
 });
 
+test("readiness policy has one canonical eligibility dependency", () => {
+  const eligibilityPolicy = artifacts.get("policy.eligibility");
+  const readinessPolicy = artifacts.get("policy.readiness");
+
+  assert.ok(eligibilityPolicy, "catalog must declare policy.eligibility");
+  assert.ok(readinessPolicy, "catalog must declare policy.readiness");
+  assert.ok(
+    (readinessPolicy.depends_on || []).includes("policy.eligibility"),
+    "policy.readiness must depend on policy.eligibility"
+  );
+  assert.ok(
+    (readinessPolicy.depends_on || []).includes("schema.issuer-eligibility-assessment"),
+    "policy.readiness must consume the structured eligibility assessment contract"
+  );
+
+  const source = fs.readFileSync(path.join(ROOT, "lib", "readiness.js"), "utf8");
+  assert.ok(source.includes("validateEligibilityAssessment"));
+  assert.ok(source.includes("buildPreliminaryEligibilityAssessment"));
+  assert.equal(
+    source.includes("function classifyEligibility("),
+    false,
+    "policy.readiness must not reintroduce an independent eligibility decision tree"
+  );
+});
+
+test("readiness policy semantic bump has a migration note", () => {
+  const readinessPolicy = artifacts.get("policy.readiness");
+  assert.equal(readinessPolicy.version, "0.2");
+  assert.equal(
+    fs.existsSync(path.join(ROOT, "migrations", "readiness-policy-0.1-to-0.2.md")),
+    true
+  );
+});
+
 test("GitHub-native readiness workflow keeps privileged execution on the trusted base", () => {
   const workflow = fs.readFileSync(
     path.join(ROOT, ".github", "workflows", "listing-readiness-feedback.yml"),
