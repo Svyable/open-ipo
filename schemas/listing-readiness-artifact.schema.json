@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-ipo.org/schemas/listing-readiness-artifact.schema.json",
+  "title": "Orbital Exchange Listing Readiness Artifact",
+  "description": "Project proposal for a reproducible GitHub-native envelope around a listing-readiness-response.v0.1, binding the result to trusted evaluator, catalog, source-commit, and workflow provenance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_version",
+    "evaluation",
+    "readiness_response"
+  ],
+  "properties": {
+    "artifact_version": {
+      "const": "listing-readiness-artifact.v0.1"
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "catalog",
+        "source",
+        "execution"
+      ],
+      "properties": {
+        "policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "version"],
+          "properties": {
+            "id": { "const": "policy.readiness" },
+            "version": {
+              "type": "string",
+              "pattern": "^v?[0-9]+\\.[0-9]+(?:\\.[0-9]+)?$"
+            }
+          }
+        },
+        "catalog": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["version"],
+          "properties": {
+            "version": {
+              "type": "string",
+              "pattern": "^open-ipo-standards-catalog\\.v[0-9]+\\.[0-9]+$"
+            }
+          }
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["repository", "commit"],
+          "properties": {
+            "repository": { "const": "Svyable/open-ipo" },
+            "commit": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40,64}$"
+            },
+            "ref": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            }
+          }
+        },
+        "execution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "environment",
+            "workflow",
+            "run_id",
+            "run_attempt"
+          ],
+          "properties": {
+            "environment": { "const": "github-actions" },
+            "workflow": { "const": ".github/workflows/listing-readiness-feedback.yml" },
+            "run_id": {
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            },
+            "run_attempt": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      }
+    },
+    "readiness_response": {
+      "$ref": "https://open-ipo.org/schemas/listing-readiness-response.schema.json"
+    }
+  }
+}
