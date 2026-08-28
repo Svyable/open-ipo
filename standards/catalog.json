@@ -66,8 +66,7 @@
       "normative": true,
       "depends_on": [
         "schema.agent-listing-intent",
-        "standard.listing",
-        "policy.readiness"
+        "standard.listing"
       ],
       "canonical_for": [
         "machine-readable deterministic pre-listing readiness feedback"
@@ -135,25 +134,6 @@
       ]
     },
     {
-      "id": "governance.process",
-      "title": "Repository Governance",
-      "kind": "governance",
-      "path": "GOVERNANCE.md",
-      "status": "draft",
-      "version": "0.1",
-      "normative": true,
-      "depends_on": [
-        "governance.standards",
-        "governance.versioning",
-        "governance.security"
-      ],
-      "canonical_for": [
-        "change classes",
-        "public decision process",
-        "merge semantics"
-      ]
-    },
-    {
       "id": "governance.versioning",
       "title": "Versioning and Compatibility",
       "kind": "governance",
@@ -187,6 +167,25 @@
         "untrusted applicant input",
         "workflow security",
         "evidence threat model"
+      ]
+    },
+    {
+      "id": "governance.process",
+      "title": "Repository Governance",
+      "kind": "governance",
+      "path": "GOVERNANCE.md",
+      "status": "draft",
+      "version": "0.1",
+      "normative": true,
+      "depends_on": [
+        "governance.standards",
+        "governance.versioning",
+        "governance.security"
+      ],
+      "canonical_for": [
+        "change classes",
+        "public decision process",
+        "merge semantics"
       ]
     },
     {
