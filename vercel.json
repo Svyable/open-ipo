@@ -3,6 +3,9 @@
   "rewrites": [
     {"source":"/","destination":"/api/index"},
     {"source":"/openapi.json","destination":"/api/openapi"},
+    {"source":"/llms.txt","destination":"/api/llms"},
+    {"source":"/discovery.json","destination":"/api/discovery"},
+    {"source":"/robots.txt","destination":"/api/robots"},
     {"source":"/.well-known/agent-card.json","destination":"/api/agent-card"},
     {"source":"/message:send","destination":"/api/message-send"},
     {"source":"/readiness","destination":"/api/readiness"},
@@ -11,6 +14,14 @@
   "headers": [
     {
       "source":"/openapi.json",
+      "headers":[{"key":"Access-Control-Allow-Origin","value":"*"}]
+    },
+    {
+      "source":"/llms.txt",
+      "headers":[{"key":"Access-Control-Allow-Origin","value":"*"}]
+    },
+    {
+      "source":"/discovery.json",
       "headers":[{"key":"Access-Control-Allow-Origin","value":"*"}]
     },
     {
