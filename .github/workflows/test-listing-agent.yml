@@ -1,0 +1,34 @@
+name: Test listing agent
+
+on:
+  pull_request:
+    paths:
+      - "api/**"
+      - "lib/**"
+      - "tests/**"
+      - "schemas/**"
+      - "examples/**"
+      - "package.json"
+      - "vercel.json"
+      - ".github/workflows/test-listing-agent.yml"
+  push:
+    branches: [main]
+    paths:
+      - "api/**"
+      - "lib/**"
+      - "tests/**"
+      - "schemas/**"
+      - "examples/**"
+      - "package.json"
+      - "vercel.json"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm test
