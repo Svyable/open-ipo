@@ -1,5 +1,7 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const catalog = require("../standards/catalog.json");
 const exampleIntent = require("../examples/agent-listing-intent.example.json");
@@ -86,4 +88,17 @@ test("invalid trusted source context fails closed", () => {
 test("cataloged example readiness artifact validates", () => {
   const result = validateReadinessArtifact(exampleArtifact);
   assert.equal(result.valid, true, JSON.stringify(result.errors, null, 2));
+});
+
+test("privileged workflow sources provenance from the trusted PR base", () => {
+  const workflow = fs.readFileSync(
+    path.join(__dirname, "..", ".github", "workflows", "listing-readiness-feedback.yml"),
+    "utf8"
+  );
+
+  assert.ok(workflow.includes("source_commit: pr.base.sha"));
+  assert.ok(workflow.includes("source_ref: pr.base.ref"));
+  assert.equal(workflow.includes("source_commit: pr.head.sha"), false);
+  assert.ok(workflow.includes("run_id: String(context.runId)"));
+  assert.ok(workflow.includes("GITHUB_RUN_ATTEMPT"));
 });
