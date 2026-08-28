@@ -1,19 +1,18 @@
 const {
-  requestBaseUrl,
-  serviceDirectory
+  llmsText,
+  readRepositoryLlmsIndex,
+  requestBaseUrl
 } = require("../lib/crawler-discovery");
 
 module.exports = async function handler(req, res) {
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
-    return res.status(405).json({ error: "method_not_allowed" });
+    return res.status(405).send("Method Not Allowed\n");
   }
 
   const baseUrl = requestBaseUrl(req);
-
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Content-Type", "text/plain; charset=utf-8");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Cache-Control", "public, max-age=300, s-maxage=300");
-
-  return res.status(200).json(serviceDirectory(baseUrl));
+  return res.status(200).send(llmsText(baseUrl, readRepositoryLlmsIndex()));
 };
