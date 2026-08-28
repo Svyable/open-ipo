@@ -85,9 +85,13 @@ test("invalid trusted source context fails closed", () => {
   );
 });
 
-test("cataloged example readiness artifact validates", () => {
+test("cataloged example readiness artifact validates and uses current readiness policy version", () => {
   const result = validateReadinessArtifact(exampleArtifact);
+  const policy = catalog.artifacts.find((item) => item.id === "policy.readiness");
+
   assert.equal(result.valid, true, JSON.stringify(result.errors, null, 2));
+  assert.equal(exampleArtifact.evaluation.policy.version, policy.version);
+  assert.equal(exampleArtifact.evaluation.catalog.version, catalog.catalog_version);
 });
 
 test("privileged workflow sources provenance from the trusted PR base", () => {
@@ -101,4 +105,17 @@ test("privileged workflow sources provenance from the trusted PR base", () => {
   assert.equal(workflow.includes("source_commit: pr.head.sha"), false);
   assert.ok(workflow.includes("run_id: String(context.runId)"));
   assert.ok(workflow.includes("GITHUB_RUN_ATTEMPT"));
+});
+
+test("privileged workflow publishes eligibility, readiness, and provenance artifacts", () => {
+  const workflow = fs.readFileSync(
+    path.join(__dirname, "..", ".github", "workflows", "listing-readiness-feedback.yml"),
+    "utf8"
+  );
+
+  assert.ok(workflow.includes("evaluateListingIntentBundle"));
+  assert.ok(workflow.includes("eligibility_assessment"));
+  assert.ok(workflow.includes(".eligibility.json"));
+  assert.ok(workflow.includes(".readiness.json"));
+  assert.ok(workflow.includes(".readiness-artifact.json"));
 });

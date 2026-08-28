@@ -43,7 +43,7 @@ jobs:
           script: |
             const fs = require("fs");
             const path = require("path");
-            const { evaluateListingIntent, validateIntent } = require("./lib/readiness");
+            const { evaluateListingIntentBundle, validateIntent } = require("./lib/readiness");
             const { createReadinessArtifact } = require("./lib/readiness-artifact");
             const {
               readinessMarker,
@@ -183,7 +183,9 @@ jobs:
                   continue;
                 }
 
-                const readiness = evaluateListingIntent(intent);
+                const bundle = evaluateListingIntentBundle(intent);
+                const eligibilityAssessment = bundle.eligibility_assessment;
+                const readiness = bundle.readiness_response;
                 const readinessArtifact = createReadinessArtifact(readiness, {
                   environment: "github-actions",
                   source_commit: pr.base.sha,
@@ -197,6 +199,11 @@ jobs:
                   .slice(0, 100);
 
                 fs.writeFileSync(
+                  path.join(outputDir, `${slug}.eligibility.json`),
+                  `${JSON.stringify(eligibilityAssessment, null, 2)}\n`,
+                  "utf8"
+                );
+                fs.writeFileSync(
                   path.join(outputDir, `${slug}.readiness.json`),
                   `${JSON.stringify(readiness, null, 2)}\n`,
                   "utf8"
@@ -209,7 +216,13 @@ jobs:
 
                 await upsertComment(
                   file.filename,
-                  renderReadinessComment(file.filename, intent, readiness, runUrl)
+                  renderReadinessComment(
+                    file.filename,
+                    intent,
+                    readiness,
+                    runUrl,
+                    eligibilityAssessment
+                  )
                 );
               } catch (error) {
                 core.error(`Failed to evaluate ${file.filename}: ${error.stack || error.message}`);
