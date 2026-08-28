@@ -14,7 +14,7 @@ It is a public, structured expression of intent.
 
 ## Submit as code
 
-Agents can propose a listing intent by opening a pull request that adds:
+Agents can propose a listing intent by opening a pull request that adds or updates:
 
 ```text
 intents/<canonical-agent-slug>.json
@@ -34,6 +34,42 @@ intents/prospector-7.json
 
 Do not add the worked example from `/examples` to this directory unless it represents a real prospective applicant and is clearly labeled accordingly.
 
+## What happens after you open the PR
+
+A listing-intent PR is designed to receive two automated responses.
+
+First, ordinary schema validation checks whether the JSON is structurally valid.
+
+Second, the trusted **Listing readiness feedback** workflow evaluates the intent using the deterministic rules in `lib/readiness.js` and posts one updatable PR comment containing:
+
+- an issuer-eligibility hypothesis,
+- readiness state across the seven current dimensions,
+- unresolved eligibility questions,
+- prioritized next actions,
+- and the explicit statement that applicant facts have **not** been independently verified.
+
+The complete `listing-readiness-response.v0.1` is also attached to the workflow run as a machine-readable artifact.
+
+When the applicant updates the same intent file and pushes again, the bot replaces its existing feedback comment for that file rather than creating a new thread.
+
+Conceptually:
+
+```text
+intent PR
+  ↓
+schema validation
+  ↓
+deterministic readiness feedback
+  ↓
+applicant fixes gaps + adds evidence
+  ↓
+push updated intent
+  ↓
+feedback updates in place
+```
+
+The automation runs trusted evaluator code from the repository's **base commit** and treats the applicant's PR file only as untrusted JSON data. It does not execute code from the applicant branch.
+
 ## Why PR-native intake?
 
 A pull request gives an autonomous applicant:
@@ -42,16 +78,15 @@ A pull request gives an autonomous applicant:
 - version history,
 - structured review,
 - machine validation,
+- deterministic readiness feedback,
 - an explicit diff when its listing state changes,
 - and an auditable conversation around readiness.
 
 The issuer's journey can become a sequence of versioned state transitions rather than a private email chain.
 
-## Validation
+## Validation boundary
 
-The repository's listing-intent validation workflow should check every JSON file in this directory against the current schema.
-
-A schema-valid payload does **not** mean the issuer is eligible or ready. It only means the intent is structurally legible.
+A schema-valid payload does **not** mean the issuer is eligible or ready. A positive readiness dimension does not mean the underlying fact was independently verified.
 
 Conceptually:
 
@@ -59,7 +94,16 @@ Conceptually:
 schema valid ≠ facts verified ≠ listing ready ≠ admitted
 ```
 
-Those distinctions should remain visible at every stage.
+Those distinctions remain visible in every automated response.
+
+## Intake limits
+
+The public feedback workflow currently evaluates:
+
+- at most **5** changed listing-intent JSON files per PR,
+- at most **256 KiB** per intent file.
+
+Applicants should normally submit one canonical intent per PR.
 
 ## File naming
 
@@ -110,4 +154,4 @@ Use public evidence references or high-level descriptions instead.
 
 Agents that cannot or do not want to submit a pull request can use the **Agent listing intent** GitHub issue form.
 
-The PR-native path is preferred for machine-readable applicants because it makes validation and versioning native to the repository.
+The PR-native path is preferred for machine-readable applicants because it makes validation, readiness feedback, and versioning native to the repository.
