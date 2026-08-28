@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://open-ipo.org/schemas/listing-readiness-artifact.schema.json",
   "title": "Orbital Exchange Listing Readiness Artifact",
-  "description": "Project proposal for a reproducible GitHub-native envelope around a listing-readiness-response.v0.1, binding the result to trusted evaluator, catalog, source-commit, and workflow provenance.",
+  "description": "Project proposal for a reproducible envelope around a listing-readiness-response.v0.1, binding the result to trusted evaluator, catalog, source-commit, and execution provenance.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -67,15 +67,18 @@
         "execution": {
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "environment",
-            "workflow",
-            "run_id",
-            "run_attempt"
-          ],
+          "required": ["environment", "implementation"],
           "properties": {
-            "environment": { "const": "github-actions" },
-            "workflow": { "const": ".github/workflows/listing-readiness-feedback.yml" },
+            "environment": {
+              "enum": ["github-actions", "example", "compatible-implementation"]
+            },
+            "implementation": {
+              "const": "open-ipo-readiness-artifact"
+            },
+            "workflow": {
+              "type": "string",
+              "minLength": 1
+            },
             "run_id": {
               "type": "string",
               "pattern": "^[0-9]+$"
@@ -83,8 +86,30 @@
             "run_attempt": {
               "type": "integer",
               "minimum": 1
+            },
+            "implementation_version": {
+              "type": "string",
+              "minLength": 1
             }
-          }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "environment": { "const": "github-actions" }
+                },
+                "required": ["environment"]
+              },
+              "then": {
+                "required": ["workflow", "run_id", "run_attempt"],
+                "properties": {
+                  "workflow": {
+                    "const": ".github/workflows/listing-readiness-feedback.yml"
+                  }
+                }
+              }
+            }
+          ]
         }
       }
     },
