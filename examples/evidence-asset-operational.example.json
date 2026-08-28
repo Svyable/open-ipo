@@ -1,0 +1,221 @@
+{
+  "schema_version": "orbital-evidence-envelope.v0.1",
+  "envelope_id": "oe:selene:asset-operational:SEL-LUNA-PROSPECT-03:2032-04-18:1",
+  "revision": 1,
+  "issued_at": "2032-04-18T12:01:30Z",
+  "issuer": {
+    "canonical_identifier": "issuer:selene-autonomous-resources",
+    "name": "Selene Autonomous Resources, PBC",
+    "jurisdiction": "Delaware, United States"
+  },
+  "subject": {
+    "type": "ASSET",
+    "canonical_identifier": "asset:SEL-LUNA-PROSPECT-03",
+    "name": "SEL-LUNA-PROSPECT-03",
+    "related_subjects": [
+      {
+        "relationship": "owned-and-operated-by",
+        "type": "ISSUER",
+        "canonical_identifier": "issuer:selene-autonomous-resources",
+        "name": "Selene Autonomous Resources, PBC"
+      }
+    ]
+  },
+  "claim": {
+    "claim_id": "claim:selene:SEL-LUNA-PROSPECT-03:operational",
+    "claim_type": "ASSET_OPERATIONAL",
+    "statement": "SEL-LUNA-PROSPECT-03 met the issuer's declared operational predicate at the observation time: communications available, power positive, instrument controller healthy, and mission scheduler accepting work.",
+    "scope": "Operational-state claim for the lunar prospecting unit at the stated observation time; not a guarantee of uninterrupted future operation.",
+    "materiality": "MATERIAL",
+    "value": true,
+    "unit": null,
+    "valid_from": "2032-04-18T12:00:00Z",
+    "valid_until": null
+  },
+  "observation": {
+    "observed_at": "2032-04-18T12:00:00Z",
+    "source_recorded_at": "2032-04-18T12:00:02Z",
+    "received_at": "2032-04-18T12:00:45Z",
+    "environment": "LIVE_OPERATION",
+    "method": "Issuer operational-state predicate evaluated over a 60-minute signed telemetry summary and cross-checked against an unaffiliated optical observation of the expected asset location.",
+    "location_context": "Lunar south-polar operating region; precise security-sensitive operating coordinates withheld from the public envelope.",
+    "time_basis": {
+      "source_identifier": "selene:mission-time:v2",
+      "quality": "BOUNDED_UNCERTAINTY",
+      "uncertainty_seconds": 2,
+      "notes": "Onboard and ground timestamps reconciled within declared two-second uncertainty."
+    },
+    "uncertainty": {
+      "status": "QUALITATIVE",
+      "summary": "Operational predicate is deterministic for the published telemetry summary, but the public summary does not expose all raw subsystem channels.",
+      "absolute_error": null,
+      "relative_error_percent": null,
+      "confidence_percent": null,
+      "lower_bound": null,
+      "upper_bound": null,
+      "calibration_reference": null
+    }
+  },
+  "evidence_items": [
+    {
+      "evidence_id": "evidence:selene:prospect-03:telemetry-summary:2032-04-18T1200Z",
+      "evidence_type": "TELEMETRY_SUMMARY",
+      "source": {
+        "source_class": "ASSET_ONBOARD_SYSTEM",
+        "canonical_identifier": "source:SEL-LUNA-PROSPECT-03:health-monitor",
+        "operator_identifier": "issuer:selene-autonomous-resources",
+        "relationship_to_issuer": "ISSUER_CONTROLLED",
+        "notes": "Onboard health monitor operated under issuer-controlled flight software."
+      },
+      "observed_at": "2032-04-18T12:00:00Z",
+      "acquisition_method": "Signed onboard health events aggregated by the issuer's public evidence pipeline.",
+      "content": {
+        "uri": "https://example.invalid/selene/evidence/prospect-03/2032-04-18-health-summary.json",
+        "digest": {
+          "algorithm": "sha256",
+          "value": "4a312ca91190d4e1f1d0a1f6c947c05c4110f08870c6dd9abdd01f404df3d721"
+        },
+        "media_type": "application/json",
+        "size_bytes": 18422,
+        "digest_scope": "REDACTED_PUBLIC_ARTIFACT"
+      },
+      "transformations": [
+        {
+          "step": 1,
+          "method": "Filter channels unrelated to the published operational predicate and redact security-sensitive command/position detail.",
+          "version": "selene-evidence-pipeline.v3.2",
+          "input_reference": "internal:prospect-03:raw-health-window:2032-04-18T1100Z-1200Z",
+          "output_digest": {
+            "algorithm": "sha256",
+            "value": "4a312ca91190d4e1f1d0a1f6c947c05c4110f08870c6dd9abdd01f404df3d721"
+          }
+        }
+      ],
+      "disclosure_state": "PUBLIC_REDACTED",
+      "limitations": [
+        "Raw command channels and precise operating coordinates are not public."
+      ]
+    },
+    {
+      "evidence_id": "evidence:third-party:lunar-optical:prospect-03:2032-04-18T1158Z",
+      "evidence_type": "THIRD_PARTY_OBSERVATION",
+      "source": {
+        "source_class": "INDEPENDENT_SENSOR",
+        "canonical_identifier": "source:lunar-observatory:camera-array-2",
+        "operator_identifier": "observer:lunar-observatory-example",
+        "relationship_to_issuer": "INDEPENDENT_THIRD_PARTY",
+        "notes": "Fictional unaffiliated public-observation provider used only for this worked example."
+      },
+      "observed_at": "2032-04-18T11:58:40Z",
+      "acquisition_method": "Optical observation matched the expected public asset identity/location envelope.",
+      "content": {
+        "uri": "https://example.invalid/lunar-observatory/observations/2032/108/prospect-03.json",
+        "digest": {
+          "algorithm": "sha256",
+          "value": "b0c993bcc95e4aff899150015967b49c7a36ae33d9ea2ee33f4390c916a21fa8"
+        },
+        "media_type": "application/json",
+        "size_bytes": 5201,
+        "digest_scope": "ORIGINAL_SOURCE"
+      },
+      "transformations": [],
+      "disclosure_state": "PUBLIC",
+      "limitations": [
+        "Optical observation supports asset presence/location consistency but does not independently attest internal subsystem health."
+      ]
+    }
+  ],
+  "assertion": {
+    "assertion_type": "ISSUER_ASSERTION",
+    "assertor": {
+      "canonical_identifier": "issuer:selene-autonomous-resources",
+      "name": "Selene Autonomous Resources, PBC",
+      "actor_type": "LEGAL_ENTITY"
+    },
+    "relationship_to_issuer": "issuer",
+    "issued_at": "2032-04-18T12:01:20Z",
+    "accountable_principal": null,
+    "signature": null
+  },
+  "attestations": [
+    {
+      "attestation_id": "attestation:lunar-observatory:prospect-03:2032-04-18",
+      "attestor": {
+        "canonical_identifier": "observer:lunar-observatory-example",
+        "name": "Lunar Observatory Example",
+        "actor_type": "LEGAL_ENTITY"
+      },
+      "relationship": {
+        "category": "UNAFFILIATED_THIRD_PARTY",
+        "independence_claimed": true,
+        "description": "Fictional unaffiliated observation provider with no issuer ownership or operating role in this worked example."
+      },
+      "scope": {
+        "evidence_item_ids": [
+          "evidence:third-party:lunar-optical:prospect-03:2032-04-18T1158Z"
+        ],
+        "reviewed_dimensions": [
+          "OBSERVATION_OCCURRED",
+          "SUBJECT_IDENTITY"
+        ],
+        "summary": "Attestation supports the occurrence of the cited optical observation and the observation's association with the public asset identifier; it does not attest the issuer's full operational-state predicate."
+      },
+      "conclusion": "SUPPORTS",
+      "issued_at": "2032-04-18T12:01:00Z",
+      "limitations": [
+        "No review of onboard telemetry or internal spacecraft health was performed."
+      ],
+      "signature": null
+    }
+  ],
+  "freshness_policy": {
+    "basis": "CLAIM_OBSERVATION_TIME",
+    "current_for_seconds": 900,
+    "stale_after_seconds": 3600,
+    "expires_at": null,
+    "rationale": "Operational-state evidence becomes decision-useful only for a short period because spacecraft state can change quickly."
+  },
+  "completeness": {
+    "selection_method": "COMPLETE_POPULATION",
+    "coverage_start": "2032-04-18T11:00:00Z",
+    "coverage_end": "2032-04-18T12:00:00Z",
+    "expected_observation_count": 60,
+    "included_observation_count": 59,
+    "missing_observation_count": 1,
+    "known_exclusions": [
+      "One expected telemetry interval was unavailable during a relay handoff."
+    ],
+    "known_contradictions": [],
+    "summary": "The public summary covers 59 of 60 expected health intervals and discloses the single missing interval."
+  },
+  "communications_context": {
+    "connectivity_state": "DEGRADED",
+    "expected_delay_seconds": 20,
+    "observed_delay_seconds": 45,
+    "notes": "Evidence arrived through a delayed relay path; freshness is still based on observation time, not receipt/publication time."
+  },
+  "disclosure": {
+    "state": "PUBLIC_REDACTED",
+    "raw_source_public": false,
+    "security_sensitive": true,
+    "redactions": [
+      {
+        "category": "SECURITY_SENSITIVE",
+        "reason": "Raw command channels and precise operating coordinates are withheld to avoid creating operational security risk.",
+        "digest_retained": true,
+        "independent_reviewed": false,
+        "impact_on_claim": "Redaction limits public re-performance of the full operational predicate but does not hide the declared predicate inputs in the published summary."
+      }
+    ],
+    "limitations": [
+      "Public reviewers cannot reconstruct all raw onboard channels from this envelope alone."
+    ]
+  },
+  "supersession": [],
+  "tags": [
+    "asset-operational",
+    "lunar-surface",
+    "telemetry"
+  ],
+  "disclaimer": "Fictional worked example for the open-ipo project. Schema validity, signatures, and attestations do not establish factual truth, exchange admission, legal eligibility, or regulatory approval."
+}
