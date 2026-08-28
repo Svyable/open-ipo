@@ -3,15 +3,15 @@
   "evaluation": {
     "policy": {
       "id": "policy.readiness",
-      "version": "0.1"
+      "version": "0.2"
     },
     "catalog": {
       "version": "open-ipo-standards-catalog.v0.1"
     },
     "source": {
       "repository": "Svyable/open-ipo",
-      "commit": "777c92d8aeb406267829924c7a883819df400e86",
-      "ref": "spec/foundation-governance"
+      "commit": "a646b304eea1b94ad48f70b5ec50c540d82633da",
+      "ref": "policy/readiness-eligibility-integration"
     },
     "execution": {
       "environment": "example",
@@ -23,14 +23,14 @@
     "schema_version": "listing-readiness-response.v0.1",
     "listing_intent_id": "intent:prospector-7:2031-11-07",
     "generated_at": "2031-11-07T16:25:00Z",
-    "state": "READINESS_REVIEW",
+    "state": "NEEDS_INFORMATION",
     "eligibility_hypothesis": {
-      "classification": "autonomous_non_terrestrial_operator",
-      "confidence": "MEDIUM",
-      "reasoning_summary": "The applicant is agent-native and is actively building cislunar operating capacity, but material beyond-Earth economic dependence has not yet been established.",
+      "classification": "undetermined",
+      "confidence": "LOW",
+      "reasoning_summary": "Eligibility outcome under standard.eligibility 0.1: UNDETERMINED. The listing-readiness-response.v0.1 classification field is retained as a backwards-compatible descriptive issuer category; it is not the canonical eligibility outcome. This example assumes a PROJECT_REVIEW_UNVERIFIED assessment with PROJECT_UNVERIFIED evidence status.",
       "blocking_questions": [
-        "Will the first hosted payload create a material revenue or operating dependency beyond Earth?",
-        "What enforceable rights will the intended issuer hold over the hosted payload and resulting data products?"
+        "What enforceable rights, control authority, revenue entitlement, data/IP rights, or other economic interests will the intended issuer hold in the qualifying non-terrestrial activity?",
+        "For the pre-operational pathway, what deployment is funded or contracted, what share of committed 24-month project capital is attributable to the non-terrestrial program, and what dated operating milestone is contractually or operationally supported?"
       ]
     },
     "readiness": {
@@ -78,32 +78,32 @@
     ],
     "next_actions": [
       {
-        "action": "Document enforceable ownership/control rights for the first cislunar hosted payload and resulting data.",
+        "action": "Resolve enforceable issuer rights and control over the qualifying activity.",
         "priority": "BLOCKING",
-        "why": "The future issuer must be able to show what non-terrestrial economic rights investors would actually own.",
-        "expected_evidence": "Executed hosted-payload agreement, IP/data-rights summary, and asset-rights mapping.",
-        "related_standard": "LISTING_STANDARD.md#gate-a--legal-and-ownership-identity"
+        "why": "The proposed eligibility standard requires investors to be able to identify what the intended issuer owns, controls, or is contractually entitled to receive.",
+        "expected_evidence": "Executed hosted-payload or asset-right agreement, revenue/data-right mapping, and command/control authority evidence.",
+        "related_standard": "ELIGIBILITY_STANDARD.md#7-gate-3--enforceable-rights-control-or-entitlement"
       },
       {
-        "action": "Publish first live non-terrestrial evidence envelope after deployment.",
-        "priority": "HIGH",
-        "why": "Current eligibility remains prospective until material beyond-Earth operations can be evidenced.",
-        "expected_evidence": "Signed mission/asset evidence with observation time, provenance, freshness, and public reference.",
-        "related_standard": "LISTING_STANDARD.md#5-operating-evidence-standard"
+        "action": "Complete the pre-operational eligibility pathway.",
+        "priority": "BLOCKING",
+        "why": "The applicant is still building and the lightweight listing intent does not establish funded/contracted deployment, committed capital concentration, and a dated operating milestone.",
+        "expected_evidence": "Funded or contracted deployment evidence, committed 24-month non-terrestrial capital share, and a dated operating milestone.",
+        "related_standard": "ELIGIBILITY_STANDARD.md#9-pre-operational-pathway"
       },
       {
         "action": "Define and test continuity recovery objectives for loss of the planning agent or communications path.",
         "priority": "MEDIUM",
-        "why": "A listed autonomous issuer should remain operationally legible through component failure.",
+        "why": "A future listed autonomous issuer should remain operationally legible through component failure.",
         "expected_evidence": "Continuity plan plus dated test record.",
         "related_standard": "LISTING_STANDARD.md#gate-e--mission-and-continuity-evidence"
       }
     ],
     "verification": {
       "facts_verified": false,
-      "verification_summary": "This example response is based only on the hypothetical applicant's self-reported listing intent. No factual claims were independently verified.",
+      "verification_summary": "This example response assumes a structured but unverified eligibility assessment plus the hypothetical applicant's self-reported listing intent. No factual claims were independently verified.",
       "verified_evidence_references": []
     },
-    "disclaimer": "Illustrative project-proposal output only. This is not exchange approval, legal advice, an eligibility determination, or a securities recommendation."
+    "disclaimer": "Illustrative project-proposal output only. This is not exchange approval, legal advice, an eligibility determination, regulatory approval, or a securities recommendation."
   }
 }
