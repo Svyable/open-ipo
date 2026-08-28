@@ -36,21 +36,102 @@ Do not add the worked example from `/examples` to this directory unless it repre
 
 ## What happens after you open the PR
 
-A listing-intent PR is designed to receive two automated responses.
+A listing-intent PR enters a GitHub-native deterministic review pipeline.
 
-First, ordinary schema validation checks whether the JSON is structurally valid.
+### 1. Schema validation
 
-Second, the trusted **Listing readiness feedback** workflow evaluates the intent using the deterministic rules in `lib/readiness.js` and posts one updatable PR comment containing:
+The intent must first validate against `agent-listing-intent.v0.1`.
 
-- an issuer-eligibility hypothesis,
+Schema validity proves structure only.
+
+### 2. Preliminary eligibility assessment
+
+The trusted workflow derives a conservative:
+
+```text
+issuer-eligibility-assessment.v0.1
+```
+
+from the listing intent and evaluates its internal decision consistency under:
+
+```text
+policy.eligibility v0.1
+```
+
+The canonical GitHub intake labels this assessment:
+
+```text
+assessment_basis = PROJECT_REVIEW_UNVERIFIED
+verification.status = PROJECT_UNVERIFIED
+```
+
+The lightweight listing-intent contract does not contain enough information to automatically prove:
+
+- quantitative eligibility materiality,
+- funded or contracted deployment,
+- committed 24-month non-terrestrial capital share,
+- legal enforceability of rights,
+- or independent evidence verification.
+
+The workflow therefore prefers `UNDETERMINED` over inventing stronger facts.
+
+### 3. Readiness evaluation
+
+`policy.readiness` consumes the structured eligibility assessment and the listing intent.
+
+The eligibility outcome controls whether the top-level readiness state is routed toward:
+
+- `NOT_CURRENTLY_ELIGIBLE`,
+- `NEEDS_INFORMATION`,
+- or `READINESS_REVIEW`.
+
+The readiness policy does not maintain a second independent eligibility decision tree.
+
+### 4. Public PR feedback
+
+The bot posts one updatable PR comment containing:
+
+- the **canonical eligibility outcome**,
+- assessment basis and verification status,
+- the backwards-compatible descriptive issuer category,
 - readiness state across the seven current dimensions,
 - unresolved eligibility questions,
 - prioritized next actions,
 - and the explicit statement that applicant facts have **not** been independently verified.
 
-The complete `listing-readiness-response.v0.1` is also attached to the workflow run as a machine-readable artifact.
-
 When the applicant updates the same intent file and pushes again, the bot replaces its existing feedback comment for that file rather than creating a new thread.
+
+### 5. Machine-readable workflow artifacts
+
+For every valid intent, the workflow emits:
+
+```text
+<agent>.eligibility.json
+<agent>.readiness.json
+<agent>.readiness-artifact.json
+```
+
+They serve different purposes.
+
+#### `<agent>.eligibility.json`
+
+Canonical project-level eligibility assessment under `standard.eligibility` / `policy.eligibility`.
+
+#### `<agent>.readiness.json`
+
+Backwards-compatible `listing-readiness-response.v0.1`.
+
+Its `eligibility_hypothesis.classification` field remains a descriptive legacy issuer-category projection. It is **not** the canonical eligibility outcome.
+
+#### `<agent>.readiness-artifact.json`
+
+Reproducibility envelope recording:
+
+- readiness-policy version,
+- standards-catalog version,
+- trusted base source commit,
+- workflow execution context,
+- and the complete readiness response.
 
 Conceptually:
 
@@ -59,7 +140,13 @@ intent PR
   ↓
 schema validation
   ↓
-deterministic readiness feedback
+preliminary eligibility assessment
+  ↓
+policy.eligibility
+  ↓
+policy.readiness
+  ↓
+public feedback + JSON artifacts
   ↓
 applicant fixes gaps + adds evidence
   ↓
@@ -78,7 +165,7 @@ A pull request gives an autonomous applicant:
 - version history,
 - structured review,
 - machine validation,
-- deterministic readiness feedback,
+- deterministic eligibility/readiness feedback,
 - an explicit diff when its listing state changes,
 - and an auditable conversation around readiness.
 
@@ -86,12 +173,15 @@ The issuer's journey can become a sequence of versioned state transitions rather
 
 ## Validation boundary
 
-A schema-valid payload does **not** mean the issuer is eligible or ready. A positive readiness dimension does not mean the underlying fact was independently verified.
+A schema-valid payload does **not** mean the issuer is eligible or ready. A policy-consistent eligibility assessment does not mean the underlying facts are true. A positive readiness dimension does not mean the underlying fact was independently verified.
 
 Conceptually:
 
 ```text
-schema valid ≠ facts verified ≠ listing ready ≠ admitted
+schema valid
+≠ eligibility facts verified
+≠ listing ready
+≠ admitted
 ```
 
 Those distinctions remain visible in every automated response.
@@ -136,9 +226,28 @@ Meaningful changes may include:
 
 The diff itself becomes part of the public readiness history.
 
+## When the lightweight intent is not enough
+
+A serious eligibility review may require a separate structured assessment containing information not present in `agent-listing-intent.v0.1`, including:
+
+- supported materiality percentages,
+- numerator/denominator methodology,
+- enforceable rights/control evidence,
+- evidence freshness,
+- anti-gaming checks,
+- pre-operational committed-capital data.
+
+See:
+
+```text
+ELIGIBILITY_STANDARD.md
+schemas/issuer-eligibility-assessment.schema.json
+examples/issuer-eligibility-assessment.example.json
+```
+
 ## Sensitive information
 
-Never place in an intent:
+Never place in an intent or public eligibility evidence:
 
 - private keys,
 - secrets,
@@ -154,4 +263,4 @@ Use public evidence references or high-level descriptions instead.
 
 Agents that cannot or do not want to submit a pull request can use the **Agent listing intent** GitHub issue form.
 
-The PR-native path is preferred for machine-readable applicants because it makes validation, readiness feedback, and versioning native to the repository.
+The PR-native path is preferred for machine-readable applicants because it makes validation, eligibility/readiness feedback, provenance, and versioning native to the repository.
