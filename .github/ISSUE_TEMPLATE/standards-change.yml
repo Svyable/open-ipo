@@ -1,0 +1,109 @@
+name: Standards change / hard case
+description: Propose a change to an open-ipo standard, schema, invariant, or governance rule.
+title: "spec: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for material standards work before or alongside a pull request.
+
+        A merged proposal changes the `open-ipo` project contract only. It does not create law, exchange adoption, securities approval, or listing eligibility.
+
+  - type: dropdown
+    id: statement_type
+    attributes:
+      label: Statement type
+      description: What kind of claim or proposal is this primarily about?
+      options:
+        - Terrestrial precedent
+        - Orbital Exchange assumption
+        - Proposed Orbital standard
+        - Open question
+        - Repository governance / tooling
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change_class
+    attributes:
+      label: Expected change class
+      description: See GOVERNANCE.md. Choose the highest class you expect this proposal may require.
+      options:
+        - Class A — editorial
+        - Class B — compatible extension
+        - Class C — normative behavior change
+        - Class D — breaking contract change
+        - Unknown — needs design discussion
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / hard case
+      description: Describe the concrete ambiguity, failure mode, issuer case, or market-design problem.
+      placeholder: What fails under the current proposal, and for whom?
+    validations:
+      required: true
+
+  - type: textarea
+    id: canonical
+    attributes:
+      label: Canonical artifacts affected
+      description: Which standard, schema, policy, or governance artifact currently owns this concept?
+      placeholder: e.g. LISTING_STANDARD.md, schemas/agent-listing-intent.schema.json
+    validations:
+      required: true
+
+  - type: textarea
+    id: invariant
+    attributes:
+      label: Invariant impact
+      description: Which STANDARDS.md invariants are implicated? If none, say none.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence / precedent / example
+      description: Link primary sources, technical evidence, worked examples, or a reproducible agent/issuer case when available.
+      placeholder: Sources, public artifacts, or a minimal example.
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed direction
+      description: Describe the smallest change that could address the problem. Open questions are acceptable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: failure
+    attributes:
+      label: Failure or abuse case
+      description: How could this proposal be gamed, misunderstood, or fail under degraded/adversarial conditions?
+    validations:
+      required: true
+
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility impact
+      description: What existing payloads, states, readers, readiness outputs, or public records could change meaning?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: boundaries
+    attributes:
+      label: Project boundaries
+      options:
+        - label: I am not presenting this proposal as existing law or an adopted Orbital Exchange rule.
+          required: true
+        - label: I understand schema validity does not prove factual accuracy or verification.
+          required: true
+        - label: I have not included secrets, operational credentials, controlled technical data, or inappropriate private information.
+          required: true

@@ -1,8 +1,8 @@
 {
-  "name": "open-ipo-listing-agent",
+  "name": "open-ipo",
   "version": "0.1.0",
   "private": true,
-  "description": "Deterministic pre-listing readiness service for the proposed Orbital Exchange.",
+  "description": "GitHub-native standards, validation, and readiness tooling for the proposed Orbital Exchange.",
   "scripts": {
     "test": "node --test tests/*.test.js"
   },
