@@ -1,0 +1,354 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-ipo.org/schemas/issuer-eligibility-assessment.schema.json",
+  "title": "Orbital Exchange Issuer Eligibility Assessment",
+  "description": "Project proposal for a machine-readable assessment under the proposed Non-Terrestrial Issuer Eligibility Standard. Schema validity does not establish legal eligibility, factual verification, or exchange admission.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "as_of",
+    "standard",
+    "issuer",
+    "assessment_basis",
+    "claimed_classification",
+    "assessed_classification",
+    "gates",
+    "anti_gaming_checks",
+    "uncertainties",
+    "blocking_questions",
+    "verification",
+    "disclaimer"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "issuer-eligibility-assessment.v0.1"
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "standard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "const": "standard.eligibility" },
+        "version": { "const": "0.1" }
+      }
+    },
+    "issuer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "canonical_identifier"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "canonical_identifier": { "type": "string", "minLength": 1 },
+        "jurisdiction": { "type": ["string", "null"] },
+        "entity_type": { "type": ["string", "null"] }
+      }
+    },
+    "assessment_basis": {
+      "enum": [
+        "SELF_REPORTED",
+        "PROJECT_REVIEW_UNVERIFIED",
+        "INDEPENDENT_ATTESTATION",
+        "MIXED"
+      ]
+    },
+    "claimed_classification": {
+      "$ref": "#/$defs/classification"
+    },
+    "assessed_classification": {
+      "$ref": "#/$defs/classification"
+    },
+    "decision_reasoning": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "qualifying_nexus",
+        "material_dependence",
+        "rights_control",
+        "evidence_sufficiency"
+      ],
+      "properties": {
+        "qualifying_nexus": {
+          "$ref": "#/$defs/nexusGate"
+        },
+        "material_dependence": {
+          "$ref": "#/$defs/materialityGate"
+        },
+        "rights_control": {
+          "$ref": "#/$defs/rightsGate"
+        },
+        "evidence_sufficiency": {
+          "$ref": "#/$defs/evidenceGate"
+        },
+        "pre_operational_pathway": {
+          "$ref": "#/$defs/preOperationalGate"
+        }
+      }
+    },
+    "anti_gaming_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check", "status", "summary"],
+        "properties": {
+          "check": {
+            "enum": [
+              "CUSTOMER_SECTOR_SUBSTITUTION",
+              "PASS_THROUGH_INFLATION",
+              "SHARED_ASSET_GROSS_UP",
+              "DOUBLE_COUNTING",
+              "SPECULATIVE_BACKLOG",
+              "CORPORATE_SHELL_QUALIFICATION",
+              "NOMINAL_PAYLOAD",
+              "CIRCULAR_VALUATION",
+              "AUTONOMY_SHORTCUT",
+              "OTHER"
+            ]
+          },
+          "status": {
+            "enum": ["PASS", "FLAG", "NOT_APPLICABLE", "UNKNOWN"]
+          },
+          "summary": { "type": "string", "minLength": 1 },
+          "evidence_references": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "blocking_questions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "summary", "verified_evidence_references"],
+      "properties": {
+        "status": {
+          "enum": [
+            "SELF_REPORTED",
+            "PROJECT_UNVERIFIED",
+            "PARTIALLY_VERIFIED",
+            "INDEPENDENTLY_ATTESTED"
+          ]
+        },
+        "summary": { "type": "string", "minLength": 1 },
+        "verified_evidence_references": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "disclaimer": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "classification": {
+      "enum": [
+        "NON_TERRESTRIAL_ISSUER",
+        "HYBRID_EARTH_SPACE_ISSUER",
+        "PRE_OPERATIONAL_NON_TERRESTRIAL_CANDIDATE",
+        "TERRESTRIAL_SPACE_SECTOR_VENDOR",
+        "UNDETERMINED"
+      ]
+    },
+    "nexusGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "nexus_types", "summary", "evidence_references"],
+      "properties": {
+        "passed": { "type": "boolean" },
+        "nexus_types": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "CONTROLLED_NON_TERRESTRIAL_ASSET",
+              "DIRECT_NON_TERRESTRIAL_OPERATIONS",
+              "DIRECT_NON_TERRESTRIAL_SERVICE_DELIVERY",
+              "RESOURCE_RIGHT_OR_INVENTORY",
+              "MISSION_CRITICAL_AUTONOMOUS_OPERATION",
+              "INFRASTRUCTURE_ENTITLEMENT"
+            ]
+          }
+        },
+        "summary": { "type": "string", "minLength": 1 },
+        "evidence_references": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "materialityGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passed",
+        "metrics",
+        "materiality_presumption_25_triggered",
+        "concentration_presumption_50_triggered",
+        "core_enterprise_override",
+        "summary"
+      ],
+      "properties": {
+        "passed": { "type": "boolean" },
+        "measurement_period": { "type": ["string", "null"] },
+        "metrics": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/materialityMetric" }
+        },
+        "materiality_presumption_25_triggered": { "type": "boolean" },
+        "concentration_presumption_50_triggered": { "type": "boolean" },
+        "core_enterprise_override": { "type": "boolean" },
+        "summary": { "type": "string", "minLength": 1 }
+      }
+    },
+    "materialityMetric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric",
+        "percentage",
+        "basis",
+        "numerator_description",
+        "denominator_description",
+        "evidence_references"
+      ],
+      "properties": {
+        "metric": {
+          "enum": [
+            "NT_REVENUE_SHARE",
+            "NT_GROSS_PROFIT_SHARE",
+            "NT_BACKLOG_SHARE",
+            "NT_PRODUCTIVE_ASSET_SHARE",
+            "NT_CAPEX_SHARE",
+            "NT_OPEX_SHARE",
+            "NT_SERVICE_CAPACITY_SHARE",
+            "NT_ENTERPRISE_DEPENDENCY_SHARE"
+          ]
+        },
+        "percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "basis": {
+          "enum": ["ACTUAL", "CONTRACTED", "COMMITTED", "FORECAST", "ASSESSED"]
+        },
+        "numerator_description": { "type": "string", "minLength": 1 },
+        "denominator_description": { "type": "string", "minLength": 1 },
+        "methodology": { "type": ["string", "null"] },
+        "uncertainty": { "type": ["string", "null"] },
+        "evidence_references": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "rightsGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "right_types", "summary", "evidence_references"],
+      "properties": {
+        "passed": { "type": "boolean" },
+        "right_types": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "TITLE_OR_BENEFICIAL_OWNERSHIP",
+              "LEASE_OR_CONCESSION",
+              "HOSTED_PAYLOAD_AGREEMENT",
+              "SERVICE_CAPACITY_ENTITLEMENT",
+              "RESOURCE_RIGHT",
+              "OPERATING_LICENSE_OR_RIGHT",
+              "REVENUE_OR_DATA_RIGHT",
+              "CONTROLLED_SUBSIDIARY",
+              "IP_OR_DATA_ENTITLEMENT",
+              "COMMAND_CONTROL_AUTHORITY",
+              "ECONOMIC_PARTICIPATION_RIGHT",
+              "OTHER"
+            ]
+          }
+        },
+        "summary": { "type": "string", "minLength": 1 },
+        "evidence_references": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "evidenceGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["passed", "freshness", "summary", "evidence_references"],
+      "properties": {
+        "passed": { "type": "boolean" },
+        "freshness": {
+          "enum": ["CURRENT", "DEGRADED", "STALE", "UNKNOWN"]
+        },
+        "summary": { "type": "string", "minLength": 1 },
+        "evidence_references": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "preOperationalGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "applicable",
+        "qualifies",
+        "funded_or_contracted",
+        "committed_24_month_nt_capital_share",
+        "capital_presumption_50_triggered",
+        "summary"
+      ],
+      "properties": {
+        "applicable": { "type": "boolean" },
+        "qualifies": { "type": "boolean" },
+        "funded_or_contracted": { "type": "boolean" },
+        "committed_24_month_nt_capital_share": {
+          "type": ["number", "null"],
+          "minimum": 0,
+          "maximum": 100
+        },
+        "capital_presumption_50_triggered": { "type": "boolean" },
+        "next_operating_milestone": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        },
+        "summary": { "type": "string", "minLength": 1 },
+        "evidence_references": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}
